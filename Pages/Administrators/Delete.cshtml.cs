@@ -12,24 +12,24 @@ namespace Fribergs_rentals_2.Pages.Administrators
 {
     public class DeleteModel : PageModel
     {
-        private readonly Fribergs_rentals_2.Data.AppDbContext _context;
+        private readonly IAdministrator adminRepo;
 
-        public DeleteModel(Fribergs_rentals_2.Data.AppDbContext context)
+        public DeleteModel(IAdministrator adminRepo)
         {
-            _context = context;
+            this.adminRepo = adminRepo;
         }
 
         [BindProperty]
         public Administrator Administrator { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var administrator = await _context.Admins.FirstOrDefaultAsync(m => m.AdministratorId == id);
+            var administrator = adminRepo.GetAdminById(id);
 
             if (administrator == null)
             {
@@ -42,19 +42,19 @@ namespace Fribergs_rentals_2.Pages.Administrators
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var administrator = await _context.Admins.FindAsync(id);
+            var administrator = adminRepo.GetAdminById(id); ;
+            
             if (administrator != null)
             {
                 Administrator = administrator;
-                _context.Admins.Remove(Administrator);
-                await _context.SaveChangesAsync();
+                adminRepo.DeleteAdmin(Administrator);
             }
 
             return RedirectToPage("./Index");

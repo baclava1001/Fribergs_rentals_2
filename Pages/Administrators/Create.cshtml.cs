@@ -12,11 +12,11 @@ namespace Fribergs_rentals_2.Pages.Administrators
 {
     public class CreateModel : PageModel
     {
-        private readonly Fribergs_rentals_2.Data.AppDbContext _context;
+        private readonly IAdministrator adminRepo;
 
-        public CreateModel(Fribergs_rentals_2.Data.AppDbContext context)
+        public CreateModel(IAdministrator adminRepo)
         {
-            _context = context;
+            this.adminRepo = adminRepo;
         }
 
         public IActionResult OnGet()
@@ -35,8 +35,7 @@ namespace Fribergs_rentals_2.Pages.Administrators
                 return Page();
             }
 
-            _context.Admins.Add(Administrator);
-            await _context.SaveChangesAsync();
+            adminRepo.AddAdmin(Administrator);
 
             return RedirectToPage("./Index");
         }

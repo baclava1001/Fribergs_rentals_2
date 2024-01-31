@@ -12,18 +12,18 @@ namespace Fribergs_rentals_2.Pages.Administrators
 {
     public class IndexModel : PageModel
     {
-        private readonly Fribergs_rentals_2.Data.AppDbContext _context;
+        private readonly IAdministrator adminRepo;
 
-        public IndexModel(Fribergs_rentals_2.Data.AppDbContext context)
+        public IndexModel(IAdministrator adminRepo)
         {
-            _context = context;
+            this.adminRepo = adminRepo;
         }
 
         public IList<Administrator> Administrator { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Administrator = await _context.Admins.ToListAsync();
+            Administrator = adminRepo.GetAllAdmin().ToList();
         }
     }
 }

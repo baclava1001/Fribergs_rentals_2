@@ -12,23 +12,23 @@ namespace Fribergs_rentals_2.Pages.Administrators
 {
     public class DetailsModel : PageModel
     {
-        private readonly Fribergs_rentals_2.Data.AppDbContext _context;
+        private readonly IAdministrator adminRepo;
 
-        public DetailsModel(Fribergs_rentals_2.Data.AppDbContext context)
+        public DetailsModel(IAdministrator adminRepo)
         {
-            _context = context;
+            this.adminRepo = adminRepo;
         }
 
         public Administrator Administrator { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var administrator = await _context.Admins.FirstOrDefaultAsync(m => m.AdministratorId == id);
+            var administrator = adminRepo.GetAdminById(id);
             if (administrator == null)
             {
                 return NotFound();
