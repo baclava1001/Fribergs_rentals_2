@@ -1,0 +1,85 @@
+﻿@page
+@model Fribergs_rentals_2.Pages.Cars.IndexModel
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Cars[0].Maker)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cars[0].Mod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cars[0].Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cars[0].Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cars[0].UnAvailable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cars[0].PricePerDay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cars[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cars[0].CarPictures)
+            </th>
+            <th>
+                <p>Hantera</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Cars) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Maker)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnAvailable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PricePerDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                    @if (item.CarPictures[0] != null)
+                    {
+                        <img class="imgSmall" src="@item.CarPictures[0]" alt="Bild på bilen" />
+                    }
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.CarId">Ändra</a> |
+                <a asp-page="./Details" asp-route-id="@item.CarId">Detaljer</a> |
+                <a asp-page="./Delete" asp-route-id="@item.CarId">Radera</a> |
+                <a asp-page="/CarPictures/Create" asp-route-carId="@item.CarId">Bilder</a> |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

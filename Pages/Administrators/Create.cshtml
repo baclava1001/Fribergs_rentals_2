@@ -1,0 +1,69 @@
+﻿@page
+@model Fribergs_rentals_2.Pages.Administrators.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Administrator</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Administrator.FirstName" class="control-label"></label>
+                <input asp-for="Administrator.FirstName" class="form-control" />
+                <span asp-validation-for="Administrator.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Administrator.LastName" class="control-label"></label>
+                <input asp-for="Administrator.LastName" class="form-control" />
+                <span asp-validation-for="Administrator.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Administrator.BirthDate" class="control-label"></label>
+                <input asp-for="Administrator.BirthDate" class="form-control" />
+                <span asp-validation-for="Administrator.BirthDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Administrator.Address" class="control-label"></label>
+                <input asp-for="Administrator.Address" class="form-control" />
+                <span asp-validation-for="Administrator.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Administrator.Email" class="control-label"></label>
+                <input asp-for="Administrator.Email" class="form-control" />
+                <span asp-validation-for="Administrator.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Administrator.PhoneNumber" class="control-label"></label>
+                <input asp-for="Administrator.PhoneNumber" class="form-control" />
+                <span asp-validation-for="Administrator.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Administrator.Password" class="control-label"></label>
+                <input asp-for="Administrator.Password" class="form-control" />
+                <span asp-validation-for="Administrator.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Administrator.LoggedIn" /> @Html.DisplayNameFor(model => model.Administrator.LoggedIn)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
