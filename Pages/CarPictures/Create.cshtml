@@ -14,7 +14,7 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                @* TODO: Testa med foreach-loop : 
+                @* TODO: Testat med foreach-loop utan framgång, finns det andra sätt? 
                 @foreach (var property in typeof(Fribergs_rentals_2.Models.Car).GetProperties())
                 {
                     <input type="hidden" asp-for="CarPicture.Car.@property.Name" />

@@ -1,4 +1,6 @@
-﻿namespace Fribergs_rentals_2.Models
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Fribergs_rentals_2.Models
 {
     public class Booking
     {
@@ -9,7 +11,8 @@
         public double? Payement { get; set; }
 
         public Customer Customer { get; set; }
-        // Administrator not necessary, is nullable
+        // Customer not necessary, is nullable
+        [AllowNull]
         public Administrator? Administrator { get; set; }
     }
 }

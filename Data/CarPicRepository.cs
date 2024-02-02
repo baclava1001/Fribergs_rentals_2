@@ -11,8 +11,6 @@ namespace Fribergs_rentals_2.Data
             this.appDbContext = appDbContext;
         }
 
-
-        // TODO: Update all methods in all repositories to async
         public CarPicture GetCarPicById(int? carPicId)
         {
             return appDbContext.CarPics.Include(p => p.Car).FirstOrDefault(p => p.CarPictureId == carPicId);

@@ -1,4 +1,5 @@
 ﻿using Fribergs_rentals_2.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fribergs_rentals_2.Data
 {
@@ -13,26 +14,26 @@ namespace Fribergs_rentals_2.Data
 
         public Customer GetCustomerById(int customerId)
         {
-            return appDbContext.Customers.Find(customerId);
+            return appDbContext.Customers.Include(c => c.Bookings).FirstOrDefault(c => c.CustomerId == customerId);
         }
 
         public Customer GetCustomerByEmail(string customerEmail)
         {
-            return appDbContext.Customers.FirstOrDefault(c => c.Email == customerEmail);
+            return appDbContext.Customers.Include(c => c.Bookings).FirstOrDefault(c => c.Email == customerEmail);
         }
 
         public Customer GetCustomerByPhone(string customerPhone)
         {
-            return appDbContext.Customers.FirstOrDefault(c => c.PhoneNumber == customerPhone);
+            return appDbContext.Customers.Include(c => c.Bookings).FirstOrDefault(c => c.PhoneNumber == customerPhone);
         }
         public Customer GetCustomerByPassword(string password)
         {
-            return appDbContext.Customers.FirstOrDefault(c => c.Password == password);
+            return appDbContext.Customers.Include(c => c.Bookings).FirstOrDefault(c => c.Password == password);
         }
 
         public IEnumerable<Customer> GetAllCustomers()
         {
-            return appDbContext.Customers.OrderBy(c => c.LastName).ThenBy(c => c.FirstName);
+            return appDbContext.Customers.Include(c => c.Bookings).OrderBy(c => c.LastName).ThenBy(c => c.FirstName);
         }
 
         public void AddCustomer(Customer customer)

@@ -1,4 +1,5 @@
 ﻿using Fribergs_rentals_2.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fribergs_rentals_2.Data
 {
@@ -13,16 +14,20 @@ namespace Fribergs_rentals_2.Data
 
         public Booking GetBookingById(int bookingId)
         {
-            return appDbContext.Bookings.Find(bookingId);
+            return appDbContext.Bookings.Include(b => b.BookedCar).Include(b => b.Customer).Include(b => b.Administrator).FirstOrDefault(b => b.BookingId == bookingId);
         }
 
         public IEnumerable<Booking> GetAllBookings()
         {
-            return appDbContext.Bookings.OrderBy(b => b.Customer.LastName).ThenBy(b => b.Customer.FirstName);
+            return appDbContext.Bookings.OrderBy(b => b.Customer.LastName).ThenBy(b => b.Customer.FirstName).Include(b => b.BookedCar).Include(b => b.Customer).Include(b => b.Administrator);
         }
 
         public void AddBooking(Booking booking)
         {
+            // Undanta BookedCar, Administrator och Adminstrator från EF Cores operationer
+            appDbContext.Entry(booking.BookedCar!).State = EntityState.Unchanged;
+            appDbContext.Entry(booking.Customer!).State = EntityState.Unchanged;
+            appDbContext.Entry(booking.Administrator!).State = EntityState.Unchanged;
             appDbContext.Add(booking);
             appDbContext.SaveChanges();
         }

@@ -18,8 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Pages\Bookings\" />
-    <Folder Include="Pages\Customers\" />
   </ItemGroup>
 
 </Project>

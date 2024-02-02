@@ -20,6 +20,7 @@ namespace Fribergs_rentals_2
             builder.Services.AddTransient<ICarPicture, CarPicRepository>();
             builder.Services.AddTransient<IBooking, BookingRepository>();
             // TODO: Add service for cookies
+            //builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             var app = builder.Build();
 

@@ -14,7 +14,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">
-                    <img src="./Images/friberg_logo.png" / style="width:15%">
+                    <img src="/Images/friberg_logo.png" / style="width:15%">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -23,16 +23,33 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Customer/LogIn">Bilar(X)</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Cars/Index">Bil-Index(X)</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Cars/Index">Bilar(X)</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/CarPictures/Index">Bilder(X)</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Administrators/Index">Admin(X)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Customers/Index">Kunder(X)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/Index">Bokningar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="">
+                                @{
+                                    var cookieValue = Context.Request.Cookies["LoggedInCookie"];
+                                }
+                                @if (cookieValue != null)
+                                {
+                                    <p>@cookieValue</p>
+                                }
+                            </a>
                         </li>
                     </ul>
                 </div>

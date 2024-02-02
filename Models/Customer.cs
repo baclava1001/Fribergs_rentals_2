@@ -11,6 +11,7 @@ namespace Fribergs_rentals_2.Models
         [DisplayName("Efternamn")]
         public string LastName { get; set; }
         [DisplayName("Födelsedatum")]
+        // TODO: Change to DateTime
         public DateOnly BirthDate { get; set; }
         [DisplayName("Adress")]
         public string Address { get; set; }

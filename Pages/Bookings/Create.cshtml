@@ -1,0 +1,85 @@
+﻿@page
+@model Fribergs_rentals_2.Pages.Bookings.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Booking</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Booking.Customer.FirstName" class="control-label"></label>
+                <span> </span>
+                <label asp-for="Booking.Customer.LastName" class="control-label"></label>
+                <label asp-for="Booking.BookedCar.Mod" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Booking.BookedCar.Mod" class="control-label"></label>
+                <label asp-for="Booking.BookedCar.Mod" class="form-control" />
+            </div>
+            <input type="hidden" asp-for="Booking.BookedCar.CarId" />
+            <input type="hidden" asp-for="Booking.BookedCar.Maker" />
+            <input type="hidden" asp-for="Booking.BookedCar.Mod" />
+            <input type="hidden" asp-for="Booking.BookedCar.Year" />
+            <input type="hidden" asp-for="Booking.BookedCar.Color" />
+            <input type="hidden" asp-for="Booking.BookedCar.UnAvailable" />
+            <input type="hidden" asp-for="Booking.BookedCar.PricePerDay" />
+            <input type="hidden" asp-for="Booking.BookedCar.Description" />
+            <input type="hidden" asp-for="Booking.BookedCar.CarPictures" />
+
+            <input type="hidden" asp-for="Booking.Customer.CustomerId" />
+            <input type="hidden" asp-for="Booking.Customer.FirstName" />
+            <input type="hidden" asp-for="Booking.Customer.LastName" />
+            <input type="hidden" asp-for="Booking.Customer.BirthDate" />
+            <input type="hidden" asp-for="Booking.Customer.Address" />
+            <input type="hidden" asp-for="Booking.Customer.Email" />
+            <input type="hidden" asp-for="Booking.Customer.PhoneNumber" />
+            <input type="hidden" asp-for="Booking.Customer.Password" />
+            <input type="hidden" asp-for="Booking.Customer.LoggedIn" />
+            <input type="hidden" asp-for="Booking.Customer.Bookings" />
+
+            <input type="hidden" asp-for="Booking.Administrator.AdministratorId" />
+            <input type="hidden" asp-for="Booking.Administrator.FirstName" />
+            <input type="hidden" asp-for="Booking.Administrator.LastName" />
+            <input type="hidden" asp-for="Booking.Administrator.BirthDate" />
+            <input type="hidden" asp-for="Booking.Administrator.Address" />
+            <input type="hidden" asp-for="Booking.Administrator.Email" />
+            <input type="hidden" asp-for="Booking.Administrator.PhoneNumber" />
+            <input type="hidden" asp-for="Booking.Administrator.Password" />
+            <input type="hidden" asp-for="Booking.Administrator.LoggedIn" />
+            <input type="hidden" asp-for="Booking.Administrator.Bookings" />
+            <div class="form-group">
+                <label asp-for="Booking.PickUpDate" class="control-label"></label>
+                <input asp-for="Booking.PickUpDate" class="form-control" />
+                <span asp-validation-for="Booking.PickUpDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Booking.ReturnDate" class="control-label"></label>
+                <input asp-for="Booking.ReturnDate" class="form-control" />
+                <span asp-validation-for="Booking.ReturnDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Booking.Payement" class="control-label"></label>
+                <input asp-for="Booking.Payement" class="form-control" />
+                <span asp-validation-for="Booking.Payement" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
