@@ -5,21 +5,20 @@ using Fribergs_rentals_2.Data;
 using Fribergs_rentals_2.Models;
 using Microsoft.AspNetCore.Session;
 using Microsoft.Win32;
-using Newtonsoft.Json;
 
-namespace Fribergs_rentals_2.Pages.Administrators
+namespace Fribergs_rentals_2.Pages.Customers
 {
     public class LogInModel : PageModel
     {
-        private readonly IAdministrator adminRepo;
+        private readonly ICustomer customerRepo;
 
-        public LogInModel(IAdministrator adminRepo)
+        public LogInModel(ICustomer customerRepo)
         {
-            this.adminRepo = adminRepo;
+            this.customerRepo = customerRepo;
         }
 
         [BindProperty]
-        public Administrator Admin { get; set; } = default!;
+        public Customer Customer { get; set; } = default!;
 
         public IActionResult OnGet()
         {
@@ -27,25 +26,26 @@ namespace Fribergs_rentals_2.Pages.Administrators
         }
 
         // Taking parameters from URL query string
-        public IActionResult OnPost(Administrator admin)
+        public IActionResult OnPost(Customer customer)
         {
-            if (admin == null)
+            if (customer == null)
             {
                 return NotFound();
             }
             else
             {
                 // If the email and password match the same person == fullösning
-                if (adminRepo.GetAdminByEmail(admin.Email) == adminRepo.GetAdminByPassword(admin.Password))
+                if (customerRepo.GetCustomerByEmail(customer.Email) == customerRepo.GetCustomerByPassword(customer.Password))
                 {
-                    Admin = adminRepo.GetAdminByEmail(admin.Email);
+                    Customer = customerRepo.GetCustomerByEmail(customer.Email);
                     // TODO: Update logged in user to database, or remove the bool entirely from both classes?
-                    Admin.LoggedIn = true;
-                    // Put it into a session cookie
-                    // TODO: Remove string below?
-                    //string adminId = Admin.AdministratorId.ToString();
+                    Customer.LoggedIn = true;
+                    // Put it into a cookie
+                    string customerId = Customer.CustomerId.ToString();
+                    // TODO: LÄGG TILL COOKIEOPTIONS MED KORTAD LIVSTID
+                    CookieOptions cookieOptions = new CookieOptions() {};
                     // TODO: Send UserId instead and use it for a query in the html
-                    HttpContext.Session.SetString("LoggedInCookie", JsonConvert.SerializeObject(Admin));
+                    Response.Cookies.Append("LoggedInCookie", customerId, cookieOptions);
                 }
             }
             return Redirect("/Customers/Index");

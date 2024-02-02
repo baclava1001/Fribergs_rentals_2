@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Newtonsoft.Json
+@using Models
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -23,7 +26,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Customer/LogIn">Bilar(X)</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Customer/LogIn">Min sida</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Cars/Index">Bilar(X)</a>
@@ -41,15 +44,16 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/Index">Bokningar</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="">
-                                @{
-                                    var cookieValue = Context.Request.Cookies["LoggedInCookie"];
-                                }
-                                @if (cookieValue != null)
+                            @if (Context.Session.GetString("LoggedInCookie") != null)
                                 {
-                                    <p>@cookieValue</p>
+                                    var user = JsonConvert.DeserializeObject<Administrator>(Context.Session.GetString("LoggedInCookie"));
+                                    if (user != null)
+                                    {
+                                        <a class="nav-link text-dark" asp-area="" asp-page="">
+                                            @user.FirstName @user.LastName
+                                        </a>
+                                    }
                                 }
-                            </a>
                         </li>
                     </ul>
                 </div>
