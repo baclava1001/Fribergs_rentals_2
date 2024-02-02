@@ -29,19 +29,31 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Cars/Index">Våra bilar</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Customer/LogIn">Bli kund</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Customer/LogIn">Min sida</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/CarPictures/Index">Bilder(X)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Administrators/Index">Admin(X)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Customers/Index">Kunder(X)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/Index">Bokningar</a>
                         </li>
                         <li class="nav-item">
                             @if (Context.Session.GetString("LoggedInCookie") != null)
+                            {
+                                var user = JsonConvert.DeserializeObject<Administrator>(Context.Session.GetString("LoggedInCookie"));
+                                if (user != null)
                                 {
-                                    var user = JsonConvert.DeserializeObject<Administrator>(Context.Session.GetString("LoggedInCookie"));
-                                    if (user != null)
-                                    {
-                                        <a class="nav-link text-dark" asp-area="" asp-page="">
-                                            @user.FirstName @user.LastName
-                                        </a>
-                                    }
+                                    <a class="nav-link text-dark" asp-area="" asp-page="">
+                                        @user.FirstName @user.LastName
+                                    </a>
                                 }
+                            }
                         </li>
                     </ul>
                 </div>
