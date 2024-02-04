@@ -68,7 +68,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                    @if (item.CarPictures[0] != null)
+                    @if (item.CarPictures.Count() > 0)
                     {
                         <img class="imgSmall" src="@item.CarPictures[0]" alt="Bild på bilen" />
                     }

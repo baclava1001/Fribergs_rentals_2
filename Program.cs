@@ -19,7 +19,7 @@ namespace Fribergs_rentals_2
             builder.Services.AddTransient<ICar, CarRepository>();
             builder.Services.AddTransient<ICarPicture, CarPicRepository>();
             builder.Services.AddTransient<IBooking, BookingRepository>();
-            // TODO: Add service for cookies
+            // Add service for session cookies
             builder.Services.AddSession();
 
             var app = builder.Build();
@@ -41,6 +41,7 @@ namespace Fribergs_rentals_2
 
             app.MapRazorPages();
 
+            // Set app to use session cookies
             app.UseSession();
 
             app.Run();

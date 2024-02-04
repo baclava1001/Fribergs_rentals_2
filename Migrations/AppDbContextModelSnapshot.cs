@@ -31,6 +31,7 @@ namespace Fribergs_rentals_2.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdministratorId"));
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateOnly>("BirthDate")
@@ -48,9 +49,6 @@ namespace Fribergs_rentals_2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("LoggedIn")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -59,9 +57,13 @@ namespace Fribergs_rentals_2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("AdministratorId");
 
-                    b.ToTable("Admins", (string)null);
+                    b.ToTable("Admins");
                 });
 
             modelBuilder.Entity("Fribergs_rentals_2.Models.Booking", b =>
@@ -98,7 +100,7 @@ namespace Fribergs_rentals_2.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Bookings", (string)null);
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("Fribergs_rentals_2.Models.Car", b =>
@@ -135,7 +137,7 @@ namespace Fribergs_rentals_2.Migrations
 
                     b.HasKey("CarId");
 
-                    b.ToTable("Cars", (string)null);
+                    b.ToTable("Cars");
                 });
 
             modelBuilder.Entity("Fribergs_rentals_2.Models.CarPicture", b =>
@@ -146,7 +148,7 @@ namespace Fribergs_rentals_2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarPictureId"));
 
-                    b.Property<int?>("CarId")
+                    b.Property<int>("CarId")
                         .HasColumnType("int");
 
                     b.Property<string>("CarPicURL")
@@ -156,7 +158,7 @@ namespace Fribergs_rentals_2.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("CarPics", (string)null);
+                    b.ToTable("CarPics");
                 });
 
             modelBuilder.Entity("Fribergs_rentals_2.Models.Customer", b =>
@@ -186,9 +188,6 @@ namespace Fribergs_rentals_2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("LoggedIn")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -197,9 +196,13 @@ namespace Fribergs_rentals_2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("CustomerId");
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("Fribergs_rentals_2.Models.Booking", b =>
@@ -231,7 +234,9 @@ namespace Fribergs_rentals_2.Migrations
                 {
                     b.HasOne("Fribergs_rentals_2.Models.Car", "Car")
                         .WithMany("CarPictures")
-                        .HasForeignKey("CarId");
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Car");
                 });

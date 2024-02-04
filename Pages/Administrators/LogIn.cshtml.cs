@@ -27,26 +27,24 @@ namespace Fribergs_rentals_2.Pages.Administrators
         }
 
         // Taking parameters from URL query string
-        public IActionResult OnPost(Administrator admin)
+        public IActionResult OnPost(string email, string password)
         {
-            if (admin == null)
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+                return Page();
+            }
+
+            // If the email and password match the same person == fullösning
+            Admin = adminRepo.GetAdminByEmailAndPassword(email, password);
+
+            if (Admin == null)
             {
                 return NotFound();
             }
             else
             {
-                // If the email and password match the same person == fullösning
-                if (adminRepo.GetAdminByEmail(admin.Email) == adminRepo.GetAdminByPassword(admin.Password))
-                {
-                    Admin = adminRepo.GetAdminByEmail(admin.Email);
-                    // TODO: Update logged in user to database, or remove the bool entirely from both classes?
-                    Admin.LoggedIn = true;
-                    // Put it into a session cookie
-                    // TODO: Remove string below?
-                    //string adminId = Admin.AdministratorId.ToString();
-                    // TODO: Send UserId instead and use it for a query in the html
-                    HttpContext.Session.SetString("LoggedInCookie", JsonConvert.SerializeObject(Admin));
-                }
+                // Put it into a session cookie
+                HttpContext.Session.SetString("LoggedInCookie", JsonConvert.SerializeObject(Admin));
             }
             return Redirect("/Customers/Index");
         }

@@ -48,11 +48,6 @@
                 <input asp-for="Administrator.Password" class="form-control" />
                 <span asp-validation-for="Administrator.Password" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Administrator.LoggedIn" /> @Html.DisplayNameFor(model => model.Administrator.LoggedIn)
-                </label>
-            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

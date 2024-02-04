@@ -42,9 +42,9 @@ namespace Fribergs_rentals_2.Pages.CarPictures
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (string.IsNullOrEmpty(CarPicture.CarPicURL) || !ModelState.IsValid)
             {
-                return Page();
+                return Page(); // TODO: Ev felmeddelande här
             }
             await carPicRepo.AddCarPicAsync(CarPicture);
             // Redirect to Car Index page

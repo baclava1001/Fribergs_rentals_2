@@ -11,19 +11,12 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Customer.Email" class="control-label"></label>
-                <input asp-for="Customer.Email" class="form-control" />
-                <span asp-validation-for="Customer.Email" class="text-danger"></span>
+                <label for="Email" class="control-label">E-post</label>
+                <input type="email" id="Email" name="Email" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Customer.Password" class="control-label"></label>
-                <input asp-for="Customer.Password" class="form-control" />
-                <span asp-validation-for="Customer.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input readonly class="form-check-input" asp-for="Customer.LoggedIn" /> @Html.DisplayNameFor(model => model.Customer.LoggedIn)
-                </label>
+                <label for="Password" class="control-label">Lösenord</label>
+                <input type="password" id="Password" name="Password" class="form-control" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Logga in" class="btn btn-primary" />

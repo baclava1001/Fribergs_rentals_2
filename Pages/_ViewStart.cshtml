@@ -4,29 +4,31 @@
 
 
 @{
-    // Declare object variable for later use
+    // Initialize object for later use
     object user = null;
 
-    // Get the string inside the cookie an check so it isn't empty
-    if (!String.IsNullOrEmpty(Context.Session.GetString("LoggedInCookie")))
-    {
-        // Try deserializing as Administrator
-        user = JsonConvert.DeserializeObject<Administrator>(Context.Session.GetString("LoggedInCookie"));
-        // If no success
-        if (user == null)
-        {
-            // Try deserializing as Customer
-            user = JsonConvert.DeserializeObject<Customer>(Context.Session.GetString("LoggedInCookie"));
+    // Get the string inside the cookie
+    string loggedInCookie = Context.Session.GetString("LoggedInCookie");
 
-            // If still no success
-            if (user == null)
-            {
-                // Set user to null
-                user = null;
-            }
+    // If cookie isn't empty
+    if (!string.IsNullOrEmpty(loggedInCookie))
+    {
+        // Deserialize the object from json-string
+        JObject jObject = JsonConvert.DeserializeObject<JObject>(loggedInCookie);
+
+        // If the loggedInCookie contains the value "Administrator" for the key "Role"
+        if (jObject["Role"].ToString() == "Administrator")
+        {
+            // Make user an Administrator object
+            user = jObject.ToObject<Administrator>();
+        }
+        // If the loggedInCookie contains the value "Customer" for the key "Role"
+        else if (jObject["Role"].ToString() == "Customer")
+        {
+            // Make user a Customer object
+            user = jObject.ToObject<Customer>();
         }
     }
-
 
     // Load different page layouts depending on if the user is an administrator or not
     if (user is Administrator)

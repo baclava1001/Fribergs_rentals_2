@@ -49,13 +49,16 @@ namespace Fribergs_rentals_2.Pages.Customers
                 return NotFound();
             }
 
-            // TODO: Replace all 'var' declarations
             Customer customer = customerRepo.GetCustomerById(id);
             
             if (customer != null)
             {
                 Customer = customer;
                 customerRepo.DeleteCustomer(Customer);
+            }
+            else
+            {
+                return NotFound();
             }
 
             return RedirectToPage("./Index");

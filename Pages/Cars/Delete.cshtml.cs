@@ -29,7 +29,7 @@ namespace Fribergs_rentals_2.Pages.Cars
                 return NotFound();
             }
 
-            var car = await carRepo.GetCarByIdAsync(id);
+            Car car = await carRepo.GetCarByIdAsync(id);
 
             if (car == null)
             {
@@ -49,7 +49,7 @@ namespace Fribergs_rentals_2.Pages.Cars
                 return NotFound();
             }
 
-            var car = await carRepo.GetCarByIdAsync(id);
+            Car car = await carRepo.GetCarByIdAsync(id);
 
             if (car != null)
             {

@@ -29,12 +29,12 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Cars/Index">Våra bilar</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Customer/LogIn">Bli kund</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Customers/LogIn">Bli kund</a>
                         </li>
                         <li class="nav-item">
                             @if (Context.Session.GetString("LoggedInCookie") != null)
                                 {
-                                    var user = JsonConvert.DeserializeObject<Administrator>(Context.Session.GetString("LoggedInCookie"));
+                                    var user = JsonConvert.DeserializeObject<Customer>(Context.Session.GetString("LoggedInCookie"));
                                     if (user != null)
                                     {
                                         <a class="nav-link text-dark" asp-area="" asp-page="">

@@ -9,6 +9,7 @@ namespace Fribergs_rentals_2.Data
         Administrator? GetAdminByEmail(string adminEmail);
         Administrator? GetAdminByPhone(string adminPhone);
         Administrator? GetAdminByPassword(string password);
+        public Administrator? GetAdminByEmailAndPassword(string email, string password);
         IEnumerable<Administrator> GetAllAdmin();
         void AddAdmin(Administrator administrator);
         void UpdateAdmin(Administrator admin);

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fribergs_rentals_2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240129103147_ChangedCarAvailableProperty")]
-    partial class ChangedCarAvailableProperty
+    [Migration("20240204170743_First3")]
+    partial class First3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,7 @@ namespace Fribergs_rentals_2.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdministratorId"));
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateOnly>("BirthDate")
@@ -51,14 +52,15 @@ namespace Fribergs_rentals_2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("LoggedIn")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -149,7 +151,7 @@ namespace Fribergs_rentals_2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarPictureId"));
 
-                    b.Property<int?>("CarId")
+                    b.Property<int>("CarId")
                         .HasColumnType("int");
 
                     b.Property<string>("CarPicURL")
@@ -189,14 +191,15 @@ namespace Fribergs_rentals_2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("LoggedIn")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -234,7 +237,9 @@ namespace Fribergs_rentals_2.Migrations
                 {
                     b.HasOne("Fribergs_rentals_2.Models.Car", "Car")
                         .WithMany("CarPictures")
-                        .HasForeignKey("CarId");
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Car");
                 });

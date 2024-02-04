@@ -7,6 +7,7 @@ namespace Fribergs_rentals_2.Data
     {
         Customer GetCustomerById(int customerId);
         Customer GetCustomerByEmail(string customerEmail);
+        Customer GetCustomerByEmailAndPassword(string email, string password);
         Customer GetCustomerByPhone(string customerPhone);
         Customer GetCustomerByPassword(string password);
         IEnumerable<Customer> GetAllCustomers();

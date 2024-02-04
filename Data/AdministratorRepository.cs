@@ -21,13 +21,20 @@ namespace Fribergs_rentals_2.Data
             return appDbContext.Admins.Include(a => a.Bookings).FirstOrDefault(a => a.Email == adminEmail);
         }
 
+        public Administrator? GetAdminByPassword(string password)
+        {
+            return appDbContext.Admins.Include(a => a.Bookings).FirstOrDefault(a => a.Password == password);
+        }
+
+        // Controls if email and password match
+        public Administrator? GetAdminByEmailAndPassword(string email, string password)
+        {
+            return appDbContext.Admins.Include(a => a.Bookings).FirstOrDefault(a => a.Email == email && a.Password == password);
+        }
+
         public Administrator? GetAdminByPhone(string adminPhone)
         {
             return appDbContext.Admins.Include(a => a.Bookings).FirstOrDefault(a => a.PhoneNumber == adminPhone);
-        }
-        public Administrator? GetAdminByPassword(string password)
-        {
-            return appDbContext.Admins.Include(c => c.Bookings).FirstOrDefault(c => c.Password == password);
         }
 
         public IEnumerable<Administrator> GetAllAdmin()

@@ -5,6 +5,7 @@ using Fribergs_rentals_2.Data;
 using Fribergs_rentals_2.Models;
 using Microsoft.AspNetCore.Session;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 
 namespace Fribergs_rentals_2.Pages.Customers
 {
@@ -26,29 +27,26 @@ namespace Fribergs_rentals_2.Pages.Customers
         }
 
         // Taking parameters from URL query string
-        public IActionResult OnPost(Customer customer)
+        public IActionResult OnPost(string email, string password)
         {
-            if (customer == null)
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+                return Page();
+            }
+
+            // If the email and password match the same person == fullösning
+            Customer = customerRepo.GetCustomerByEmailAndPassword(email, password);
+
+            if (Customer == null)
             {
                 return NotFound();
             }
             else
             {
-                // If the email and password match the same person == fullösning
-                if (customerRepo.GetCustomerByEmail(customer.Email) == customerRepo.GetCustomerByPassword(customer.Password))
-                {
-                    Customer = customerRepo.GetCustomerByEmail(customer.Email);
-                    // TODO: Update logged in user to database, or remove the bool entirely from both classes?
-                    Customer.LoggedIn = true;
-                    // Put it into a cookie
-                    string customerId = Customer.CustomerId.ToString();
-                    // TODO: LÄGG TILL COOKIEOPTIONS MED KORTAD LIVSTID
-                    CookieOptions cookieOptions = new CookieOptions() {};
-                    // TODO: Send UserId instead and use it for a query in the html
-                    Response.Cookies.Append("LoggedInCookie", customerId, cookieOptions);
-                }
+                // Put it into a session cookie
+                HttpContext.Session.SetString("LoggedInCookie", JsonConvert.SerializeObject(Customer));
             }
-            return Redirect("/Customers/Index");
+            return Redirect("/Cars/Index");
         }
     }
 }

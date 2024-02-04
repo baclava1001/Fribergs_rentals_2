@@ -22,13 +22,20 @@ namespace Fribergs_rentals_2.Data
             return appDbContext.Customers.Include(c => c.Bookings).FirstOrDefault(c => c.Email == customerEmail);
         }
 
-        public Customer GetCustomerByPhone(string customerPhone)
-        {
-            return appDbContext.Customers.Include(c => c.Bookings).FirstOrDefault(c => c.PhoneNumber == customerPhone);
-        }
         public Customer GetCustomerByPassword(string password)
         {
             return appDbContext.Customers.Include(c => c.Bookings).FirstOrDefault(c => c.Password == password);
+        }
+
+        // Controls if email and password match
+        public Customer? GetCustomerByEmailAndPassword(string email, string password)
+        {
+            return appDbContext.Customers.Include(c => c.Bookings).FirstOrDefault(c => c.Email == email && c.Password == password);
+        }
+
+        public Customer GetCustomerByPhone(string customerPhone)
+        {
+            return appDbContext.Customers.Include(c => c.Bookings).FirstOrDefault(c => c.PhoneNumber == customerPhone);
         }
 
         public IEnumerable<Customer> GetAllCustomers()

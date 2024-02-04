@@ -5,7 +5,7 @@
 namespace Fribergs_rentals_2.Migrations
 {
     /// <inheritdoc />
-    public partial class SwitchingToDbVer2 : Migration
+    public partial class FirstFresh : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Fribergs_rentals_2.Migrations
 {
     /// <inheritdoc />
-    public partial class ChangedCarAvailableProperty : Migration
+    public partial class First3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,14 +17,14 @@ namespace Fribergs_rentals_2.Migrations
                 {
                     AdministratorId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BirthDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LoggedIn = table.Column<bool>(type: "bit", nullable: false)
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,14 +56,14 @@ namespace Fribergs_rentals_2.Migrations
                 {
                     CustomerId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BirthDate = table.Column<DateOnly>(type: "date", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LoggedIn = table.Column<bool>(type: "bit", nullable: false)
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,7 +77,7 @@ namespace Fribergs_rentals_2.Migrations
                     CarPictureId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CarPicURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CarId = table.Column<int>(type: "int", nullable: true)
+                    CarId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -86,7 +86,8 @@ namespace Fribergs_rentals_2.Migrations
                         name: "FK_CarPics_Cars_CarId",
                         column: x => x.CarId,
                         principalTable: "Cars",
-                        principalColumn: "CarId");
+                        principalColumn: "CarId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
