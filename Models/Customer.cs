@@ -16,11 +16,13 @@ namespace Fribergs_rentals_2.Models
         public DateOnly BirthDate { get; set; }
         [DisplayName("Adress")]
         public string Address { get; set; }
+        [Required]
         [EmailAddress]
         [DisplayName("E-post")]
         public string Email { get; set; }
         [DisplayName("Telefon")]
         public string PhoneNumber { get; set; }
+        [Required]
         [PasswordPropertyText]
         [DisplayName("Lösenord")]
         public string Password { get; set; }

@@ -1,37 +1,10 @@
-﻿@using Newtonsoft.Json
-@using Newtonsoft.Json.Linq
-@using Models
-
+﻿@using Models
+@using Fribergs_rentals_2
 
 @{
-    // Initialize object for later use
-    object user = null;
-
-    // Get the string inside the cookie
-    string loggedInCookie = Context.Session.GetString("LoggedInCookie");
-
-    // If cookie isn't empty
-    if (!string.IsNullOrEmpty(loggedInCookie))
-    {
-        // Deserialize the object from json-string
-        JObject jObject = JsonConvert.DeserializeObject<JObject>(loggedInCookie);
-
-        // If the loggedInCookie contains the value "Administrator" for the key "Role"
-        if (jObject["Role"].ToString() == "Administrator")
-        {
-            // Make user an Administrator object
-            user = jObject.ToObject<Administrator>();
-        }
-        // If the loggedInCookie contains the value "Customer" for the key "Role"
-        else if (jObject["Role"].ToString() == "Customer")
-        {
-            // Make user a Customer object
-            user = jObject.ToObject<Customer>();
-        }
-    }
-
     // Load different page layouts depending on if the user is an administrator or not
-    if (user is Administrator)
+    // GetUserRole() is a static helper method
+    if (Helpers.GetUserRole(Context.Session) is Administrator)
     {
         Layout = "_Layout_Admin";
     }

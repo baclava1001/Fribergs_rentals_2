@@ -39,7 +39,7 @@ namespace Fribergs_rentals_2.Pages.Administrators
 
             if (Admin == null)
             {
-                return NotFound();
+                return NotFound(); // TODO: Felmeddelande istället för NotFound
             }
             else
             {
