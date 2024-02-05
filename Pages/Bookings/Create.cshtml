@@ -1,5 +1,6 @@
 ﻿@page
 @model Fribergs_rentals_2.Pages.Bookings.CreateModel
+@using Models
 
 @{
     ViewData["Title"] = "Create";
@@ -42,7 +43,7 @@
             <input type="hidden" asp-for="Booking.Customer.Password" />
             <input type="hidden" asp-for="Booking.Customer.Bookings" />
 
-            <input type="hidden" asp-for="Booking.Administrator.AdministratorId" />
+@*             <input type="hidden" asp-for="Booking.Administrator.AdministratorId" />
             <input type="hidden" asp-for="Booking.Administrator.FirstName" />
             <input type="hidden" asp-for="Booking.Administrator.LastName" />
             <input type="hidden" asp-for="Booking.Administrator.BirthDate" />
@@ -50,7 +51,8 @@
             <input type="hidden" asp-for="Booking.Administrator.Email" />
             <input type="hidden" asp-for="Booking.Administrator.PhoneNumber" />
             <input type="hidden" asp-for="Booking.Administrator.Password" />
-            <input type="hidden" asp-for="Booking.Administrator.Bookings" />
+            <input type="hidden" asp-for="Booking.Administrator.Bookings" /> *@
+
             <div class="form-group">
                 <label asp-for="Booking.PickUpDate" class="control-label"></label>
                 <input asp-for="Booking.PickUpDate" class="form-control" />
@@ -61,11 +63,20 @@
                 <input asp-for="Booking.ReturnDate" class="form-control" />
                 <span asp-validation-for="Booking.ReturnDate" class="text-danger"></span>
             </div>
+@*             TODO: Ta bort visningen av totalsumman, eller gör så att den uppdateras automatiskt när man byter datum *@
             <div class="form-group">
-                <label asp-for="Booking.Payement" class="control-label"></label>
-                <input asp-for="Booking.Payement" class="form-control" />
-                <span asp-validation-for="Booking.Payement" class="text-danger"></span>
+                <label asp-for="Booking.TotalSum" class="control-label"></label>
+                <input readonly asp-for="Booking.TotalSum" class="form-control" />
+                <span asp-validation-for="Booking.TotalSum" class="text-danger"></span>
             </div>
+            @if (Helpers.RetrieveUserFromCookie(HttpContext.Session) is Administrator)
+            {
+                <div class="form-group">
+                    <label asp-for="Booking.AdministratorName" class="control-label"></label>
+                    <input asp-for="Booking.AdministratorName" class="form-control" />
+                    <span asp-validation-for="Booking.AdministratorName" class="text-danger"></span>
+                </div>
+            }
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

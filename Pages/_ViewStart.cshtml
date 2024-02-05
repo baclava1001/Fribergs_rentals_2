@@ -3,8 +3,8 @@
 
 @{
     // Load different page layouts depending on if the user is an administrator or not
-    // GetUserRole() is a static helper method
-    if (Helpers.GetUserRole(Context.Session) is Administrator)
+    // RetrieveUserFromCookie() is a static helper method
+    if (Helpers.RetrieveUserFromCookie(Context.Session) is Administrator)
     {
         Layout = "_Layout_Admin";
     }

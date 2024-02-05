@@ -75,7 +75,8 @@
                     }
             </td>
 
-                    @if (Helpers.GetUserRole(HttpContext.Session) is Administrator)
+                    @{var user = Helpers.RetrieveUserFromCookie(HttpContext.Session);}
+                    @if (user is Administrator)
                     {
                     <td>
                         <a asp-page="./Edit" asp-route-id="@item.CarId">Ändra</a> |
@@ -83,14 +84,21 @@
                         <a asp-page="/CarPictures/Create" asp-route-carId="@item.CarId">Bilder</a> |
                         <a asp-page="./Details" asp-route-id="@item.CarId">Detaljer</a> |
                     </td>
-                }
-                else
-                {
-                    <td>
-                        <a asp-page="./Details" asp-route-id="@item.CarId">Detaljer</a>
-                        <a asp-page="/Bookings/Create" asp-route-carId="@item.CarId">Hyr nu</a>
-                    </td>
-                }
+                    }
+                    else
+                    {
+                        <td>
+                            <a asp-page="./Details" asp-route-id="@item.CarId">Detaljer</a> |
+                            @if (user is Customer)
+                            {
+                                <a asp-page="/Bookings/Create" asp-route-carId="@item.CarId">Hyr nu</a>
+                            }
+                            else if (user == null)
+                            {
+                                <a asp-page="/Customers/Login">Hyr nu</a>
+                            }
+                        </td>
+                    }
             </tr>
 }
     </tbody>

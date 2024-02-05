@@ -20,7 +20,7 @@
                 @Html.DisplayNameFor(model => model.Booking[0].ReturnDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Booking[0].Payement)
+                @Html.DisplayNameFor(model => model.Booking[0].TotalSum)
             </th>
             <th></th>
         </tr>
@@ -35,7 +35,7 @@
                 @Html.DisplayFor(modelItem => item.ReturnDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Payement)
+                @Html.DisplayFor(modelItem => item.TotalSum)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.BookingId">Edit</a> |

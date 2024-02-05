@@ -4,6 +4,7 @@ using Fribergs_rentals_2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fribergs_rentals_2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240205173408_TinkeredWithSomeProperties")]
+    partial class TinkeredWithSomeProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,9 +79,6 @@ namespace Fribergs_rentals_2.Migrations
 
                     b.Property<int?>("AdministratorId")
                         .HasColumnType("int");
-
-                    b.Property<string>("AdministratorName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("BookedCarCarId")
                         .HasColumnType("int");
@@ -210,7 +210,7 @@ namespace Fribergs_rentals_2.Migrations
 
             modelBuilder.Entity("Fribergs_rentals_2.Models.Booking", b =>
                 {
-                    b.HasOne("Fribergs_rentals_2.Models.Administrator", null)
+                    b.HasOne("Fribergs_rentals_2.Models.Administrator", "Administrator")
                         .WithMany("Bookings")
                         .HasForeignKey("AdministratorId");
 
@@ -225,6 +225,8 @@ namespace Fribergs_rentals_2.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Administrator");
 
                     b.Navigation("BookedCar");
 

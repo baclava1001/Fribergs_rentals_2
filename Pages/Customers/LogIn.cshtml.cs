@@ -43,8 +43,13 @@ namespace Fribergs_rentals_2.Pages.Customers
             }
             else
             {
+                // Set json to ignore reference loops (Customer -> Booking -> Customer)
+                var settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
                 // Put it into a session cookie
-                HttpContext.Session.SetString("LoggedInCookie", JsonConvert.SerializeObject(Customer));
+                HttpContext.Session.SetString("LoggedInCookie", JsonConvert.SerializeObject(Customer, settings));
             }
             return Redirect("/Cars/Index");
         }

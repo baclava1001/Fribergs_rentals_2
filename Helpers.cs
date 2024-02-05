@@ -10,7 +10,7 @@ namespace Fribergs_rentals_2
     public static class Helpers
     {
         // Retrieves the type from the cookie holding the logged in user
-        public static object GetUserRole(ISession session)
+        public static object RetrieveUserFromCookie(ISession session)
         {
             // Initialize object for later use
             object user = null;
