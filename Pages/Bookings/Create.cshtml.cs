@@ -13,17 +13,30 @@ namespace Fribergs_rentals_2.Pages.Bookings
     public class CreateModel : PageModel
     {
         private readonly IBooking bookingRepo;
+        private readonly ICar carRepo;
 
-        public CreateModel(IBooking bookingRepo)
+        public CreateModel(IBooking bookingRepo, ICar carRepo)
         {
             this.bookingRepo = bookingRepo;
+            this.carRepo = carRepo;
         }
 
         [BindProperty]
         public Booking Booking { get; set; } = default!;
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync(int carId)
         {
+            Car carToRent = new Car();
+            Booking = new Booking();
+
+            if (carId > 0)
+            {
+                carToRent = await carRepo.GetCarByIdAsync(carId);
+            }
+            if (carToRent != null)
+            {
+                Booking.BookedCar = carToRent;
+            }
             return Page();
         }
 

@@ -80,7 +80,7 @@
                     <td>
                         <a asp-page="./Edit" asp-route-id="@item.CarId">Ändra</a> |
                         <a asp-page="./Delete" asp-route-id="@item.CarId">Radera</a> |
-                        <a asp-page="/CarPictures/Create" asp-route-carId="@item.CarId"> Bilder</a> |
+                        <a asp-page="/CarPictures/Create" asp-route-carId="@item.CarId">Bilder</a> |
                         <a asp-page="./Details" asp-route-id="@item.CarId">Detaljer</a> |
                     </td>
                 }
@@ -88,7 +88,7 @@
                 {
                     <td>
                         <a asp-page="./Details" asp-route-id="@item.CarId">Detaljer</a>
-                        <a asp-page="/Bookings/Create" asp-route-id="@item.CarId">Hyr nu</a>
+                        <a asp-page="/Bookings/Create" asp-route-carId="@item.CarId">Hyr nu</a>
                     </td>
                 }
             </tr>
