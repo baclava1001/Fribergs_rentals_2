@@ -37,7 +37,7 @@ namespace Fribergs_rentals_2.Pages.Customers
 
             customerRepo.AddCustomer(Customer);
 
-            return RedirectToPage($"./Details/{Customer.CustomerId}");
+            return RedirectToPage($"./Details", new {id = Customer.CustomerId});
         }
     }
 }

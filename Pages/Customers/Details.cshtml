@@ -1,5 +1,6 @@
 ﻿@page
 @model Fribergs_rentals_2.Pages.Customers.DetailsModel
+@using Models
 
 @{
     ViewData["Title"] = "Details";
@@ -56,6 +57,12 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Customer.CustomerId">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    @{
+        var currentUser = Helpers.RetrieveUserFromCookie(HttpContext.Session);
+    }
+    @if (currentUser is Administrator)
+    {
+        <a asp-page="./Edit" asp-route-id="@Model.Customer.CustomerId">Edit</a>
+        <a asp-page="./Index">Back to List</a>
+    }
 </div>
