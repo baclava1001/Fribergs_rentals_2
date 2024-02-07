@@ -6,17 +6,20 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Boka bil</h1>
 
-<h4>Booking</h4>
+<h4>@Model.Booking.BookedCar.Maker @Model.Booking.BookedCar.Mod</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="container">
+    <div class="main">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label>Namn</label>
+                <label asp-for="Booking.Customer.FirstName" class="control-label"></label>
                 <input readonly asp-for="Booking.Customer.FirstName" class="form-control">
+            </div>
+            <div class="form-group">
+                <label asp-for="Booking.Customer.LastName" class="control-label"></label>
                 <input readonly asp-for="Booking.Customer.LastName" class="form-control" />
             </div>
             <div class="form-group">
@@ -43,30 +46,24 @@
             <input type="hidden" asp-for="Booking.Customer.Password" />
             <input type="hidden" asp-for="Booking.Customer.Bookings" />
 
-@*             <input type="hidden" asp-for="Booking.Administrator.AdministratorId" />
-            <input type="hidden" asp-for="Booking.Administrator.FirstName" />
-            <input type="hidden" asp-for="Booking.Administrator.LastName" />
-            <input type="hidden" asp-for="Booking.Administrator.BirthDate" />
-            <input type="hidden" asp-for="Booking.Administrator.Address" />
-            <input type="hidden" asp-for="Booking.Administrator.Email" />
-            <input type="hidden" asp-for="Booking.Administrator.PhoneNumber" />
-            <input type="hidden" asp-for="Booking.Administrator.Password" />
-            <input type="hidden" asp-for="Booking.Administrator.Bookings" /> *@
-
             <div class="form-group">
                 <label asp-for="Booking.PickUpDate" class="control-label"></label>
-                <input asp-for="Booking.PickUpDate" class="form-control" />
+                <input id="pickUpDate" asp-for="Booking.PickUpDate" class="form-control" />
                 <span asp-validation-for="Booking.PickUpDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Booking.ReturnDate" class="control-label"></label>
-                <input asp-for="Booking.ReturnDate" class="form-control" />
+                <input id="returnDate" asp-for="Booking.ReturnDate" class="form-control" />
                 <span asp-validation-for="Booking.ReturnDate" class="text-danger"></span>
             </div>
-@*             TODO: Ta bort visningen av totalsumman, eller gör så att den uppdateras automatiskt när man byter datum *@
+            <div class="form-group">
+                <label asp-for="Booking.BookedCar.PricePerDay" class="control-label"></label>
+                <input readonly asp-for="Booking.BookedCar.PricePerDay" class="form-control" />
+                <span asp-validation-for="Booking.BookedCar.PricePerDay" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Booking.TotalSum" class="control-label"></label>
-                <input readonly asp-for="Booking.TotalSum" class="form-control" />
+                <input id="totalSum" readonly type="number" step="0.01" asp-for="Booking.TotalSum" class="form-control" />
                 <span asp-validation-for="Booking.TotalSum" class="text-danger"></span>
             </div>
             @if (Helpers.RetrieveUserFromCookie(HttpContext.Session) is Administrator)
@@ -78,16 +75,49 @@
                 </div>
             }
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Boka" class="normalbutton" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
-
+@if (Helpers.RetrieveUserFromCookie(HttpContext.Session) is Administrator)
+{
+    <div>
+        <a asp-page="Index">Tillbaka till lista</a>
+    </div>
+}
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @* Script from ChatGPT *@
+    <script>
+        // Get the input fields
+        var pickUpDateInput = document.getElementById('pickUpDate');
+        var returnDateInput = document.getElementById('returnDate');
+        var totalSumInput = document.getElementById('totalSum');
+
+        // Add event listeners to pick-up and return date inputs
+        pickUpDateInput.addEventListener('change', updateTotalSum);
+        returnDateInput.addEventListener('change', updateTotalSum);
+
+        function updateTotalSum() {
+            // Get the pick-up and return date and convert to javascript date-values
+            var pickUpDate = new Date(pickUpDateInput.value);
+            var returnDate = new Date(returnDateInput.value);
+
+            // Calculate the difference in milliseconds
+            var timeDifference = returnDate.getTime() - pickUpDate.getTime();
+            // Convert the difference to whole days
+            var daysDifference = timeDifference / (1000 * 3600 * 24);
+
+            // Get the price per day
+            var pricePerDay = parseFloat('@Model.Booking.BookedCar.PricePerDay');
+
+            // Calculate the total sum
+            var totalSum = daysDifference * pricePerDay;
+
+            // Update the total sum input value
+            totalSumInput.value = totalSum.toFixed(2); // Format to two decimal places
+        }
+    </script>
 }

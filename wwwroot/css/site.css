@@ -34,11 +34,12 @@
 /* Check if bigger display */
 @media (min-width: 800px) {
     #car-facts {
-        flex: 0 0 20%; /* Occupy smaller width on bigger screens */
+        flex: 0 0 30%; /* Occupy smaller width on bigger screens */
     }
 
     #car-description {
-        flex: 0 0 80%; /* Occupy larger width on bigger screens */
+        flex: 0 0 70%; /* Occupy larger width on bigger screens */
+        padding-left:40px;
     }
 }
 
@@ -77,11 +78,18 @@ p {
 }
 
 a {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
     text-decoration: none;
 }
 
 a:hover {
     text-decoration: underline;
+}
+
+.footer {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
 }
 
 /* Styling for navigation elements */
@@ -134,22 +142,75 @@ nav a:hover {
 }
 
 /* Style for form elements */
-.form-group label {
-    display: inline-block; /* Display labels and inputs on the same line */
-    width: 120px; /* Set a fixed width for labels */
-    margin-right: 10px;
+.form-group {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 18px;
 }
 
-.form-group input {
-    width: 30%; /* Set the width of the input, minus the label width and margin */
-    margin-bottom: 10px;
+.control-label {
+    display: inline-block; /* Display labels and inputs on the same line */
+    width: 120px; /* Set a fixed width for labels */
+    margin-right: 20px;
 }
 
-.form-group .text-danger {
+.form-control {
+    width: 100%; /* Set the width of the input, minus the label width and margin */
+    max-width: 300px;
+    height: 20px;
+    margin-bottom: 20px;
+}
+
+.text-danger {
     display: block; /* Display validation messages below inputs */
     margin-top: 5px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 14px;
+    color:darkred;
+}
+
+/* Right-center button inside form */
+.form-group input[type="submit"],
+.form-group button {
+    margin-left: 350px;
+}
+
+/* Styling for buttons */
+.normalbutton {
+    border-color: darkslategray;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+    padding: 5px 10px 5px 10px;
+    max-width: 140px;
+}
+
+    .normalbutton:hover {
+        border-color: #EC9B3B;
+    }
+
+.dangerbutton {
+    background-color: black;
+    border-color: darkslategray;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+    color: darkred;
+    padding: 5px 10px 5px 10px;
+}
+
+    .dangerbutton:hover {
+        color: red;
+    }
+
+.cancelbutton {
+    background-color: black;
+    border-color: darkslategray;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+    color: lightslategray;
+    padding: 5px 10px 5px 10px;
+}
+
+.cancelbutton:hover {
+    color: darkgray;
 }
 
 /* Styling for table */
@@ -213,47 +274,7 @@ dd:hover {
     background: #F7D716;
 }
 
-/* Styling for buttons */
-.normalbutton {
-    border-color: darkslategray;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 18px;
-    padding: 5px 10px 5px 10px;
-}
-
-.normalbutton:hover {
-    border-color: #EC9B3B;
-}
-
-.dangerbutton {
-    background-color: black;
-    border-color: darkslategray;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 18px;
-    color: darkred;
-    padding: 5px 10px 5px 10px;
-}
-
-.dangerbutton:hover {
-    color: red;
-}
-
-.cancelbutton {
-    background-color: black;
-    border-color: darkslategray;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 18px;
-    color: lightslategray;
-    padding: 5px 10px 5px 10px;
-}
-
-.dangerbutton:hover {
-    color: darkgray;
-}
-
-
-/* Code below for slide show borrowed and slightly modified from:https://codingartistweb.com/2021/08/create-auto-image-slider-using-html-css/*/
-
+/* Code below for slide show borrowed and slightly modified from:https://codingartistweb.com/2021/08/create-auto-image-slider-using-html-css/ */
 .slideshow-container {
     width: 80vmin;
     height: auto;

@@ -5,6 +5,7 @@ namespace Fribergs_rentals_2.Models
 {
     public class Administrator
     {
+        [DisplayName("Personalnummer")]
         public int AdministratorId { get; set; }
         [DisplayName("Roll")]
         public string Role { get; set; }

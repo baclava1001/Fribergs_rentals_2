@@ -64,7 +64,7 @@ namespace Fribergs_rentals_2.Pages.Bookings
                     throw;
                 }
             }
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Details", new { id = Booking.BookingId });
         }
     }
 }

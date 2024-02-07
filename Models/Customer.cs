@@ -6,6 +6,7 @@ namespace Fribergs_rentals_2.Models
 {
     public class Customer
     {
+        [DisplayName("Kundnummer")]
         public int CustomerId { get; set; }
         [DisplayName("Roll")]
         public string Role { get; set; } = "Customer";

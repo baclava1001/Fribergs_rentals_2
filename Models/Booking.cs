@@ -7,6 +7,7 @@ namespace Fribergs_rentals_2.Models
 {
     public class Booking
     {
+        [DisplayName("Bokningsnummer")]
         public int BookingId { get; set; }
         [Required]
         public Car BookedCar { get; set; }
