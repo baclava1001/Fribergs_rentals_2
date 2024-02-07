@@ -21,7 +21,7 @@ namespace Fribergs_rentals_2.Models
         [DisplayName("Beskrivning")]
         public string? Description { get; set; }
         // Each car has a list of pictures stored in a separate database
-        [DisplayName("Se bilder")]
+        [DisplayName("Bild")]
         public List<CarPicture>? CarPictures { get; set; }
     }
 }

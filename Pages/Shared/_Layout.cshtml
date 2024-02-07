@@ -3,72 +3,60 @@
 
 <!DOCTYPE html>
 <html lang="en">
+<div class="container">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Fribergs</title>
+    <title>Fribergs biluthyrning</title>
     <link rel="icon" type="image/x-icon" href="~/Images/favicon.ico" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="https://kit.fontawesome.com/69379f0e67.js" crossorigin="anonymous"></script>
+    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Fribergs_rentals_2.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body class="main">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">
-                    <img src="/Images/friberg_logo.png" alt="Fribergs logotype" style="width:15%">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Cars/Index">Våra bilar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Customers/Create">Bli kund</a>
-                        </li>
-                        <li class="nav-item">
-                            @{var user = Helpers.RetrieveUserFromCookie(Context.Session);}
-                            @if (user == null)
-                            {
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Customers/LogIn">Logga in</a>
-                            }
-                            else if (user is Customer)
-                            {
-                                var customer = (Customer)user;
-                                string name = $"{customer.FirstName} {customer.LastName}";
-                                <a class="nav-link text-dark" asp-area="" asp-page="">@name</a>
-                            }
-                            else
-                            {
-                                // TODO: Felmeddelande: kunde inte logga in
-                            }
-                        </li>
-                    </ul>
-                </div>
+        <nav>
+            @{
+                var user = Helpers.RetrieveUserFromCookie(Context.Session);
+            }
+            @if (user == null)
+            {
+                <a class="nav-link" asp-area="" asp-page="/Customers/LogIn">Logga in</a>
+                <a class="nav-link" asp-area="" asp-page="/Customers/Create">Bli kund</a>
+            }
+            else if (user is Customer)
+            {
+                var customer = (Customer)user;
+                string name = $"{customer.FirstName} {customer.LastName}";
+                <a class="nav-link" asp-area="" asp-page="/Logout">Logga ut</a>
+                <a class="nav-link" asp-area="" asp-page="/Customers/Details" asp-route-Id=@customer.CustomerId>@name</a>
+            }
+            else
+            {
+                // TODO: Felmeddelande: kunde inte logga in
+            }
+            <a asp-area="" asp-page="/Index">
+                <img class="logo" src="/Images/friberg_logo.png" alt="Fribergs logotype" />
+            </a>
+                <a class="nav-link" asp-area="" asp-page="/Cars/Index">Våra bilar</a>
+            @* TODO: Make div below center without using position:absolute *@
+            <div style="text-align:center; position:absolute; margin-left:450px">
+                <h2>Fribergs biluthyrning</h2>
+                <p>För dig som <i class="fa-solid fa-car-side" style="color: #ec1f09;"></i> att vara på väg.</p>
             </div>
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main">
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - <a asp-area="" asp-page="/Privacy">Om Fribergs</a>
-        </div>
-    </footer>
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
+<footer class="">
+        &copy; 2024 - <a asp-area="" asp-page="/Privacy">Fribergs</a>
+</footer>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+@* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
 </html>

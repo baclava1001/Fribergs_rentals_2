@@ -1,30 +1,310 @@
-html {
-  font-size: 14px;
+/* Make footer stay on bottom of page and make page more responsive */
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 70vh;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.car-details-container {
+    display: flex;
+    flex-wrap: wrap-reverse; /* Allow items to wrap to the next line */
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+#car-facts {
+    flex: 1; /* Occupy 50% of the container width */
+    background-color: #f0f0f0;
+    padding: 10px;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+#car-description {
+    flex: 1; /* Occupy 50% of the container width */
+    background-color: #f0f0f0;
+    padding: 10px;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
 
-body {
-  margin-bottom: 60px;
+/* Check if small display */
+@media (max-width: 768px) {
+    #car-facts, #car-description {
+        flex: 100%; /* Occupy full width on smaller screens */
+    }
+}
+
+/* Check if bigger display */
+@media (min-width: 800px) {
+    #car-facts {
+        flex: 0 0 20%; /* Occupy smaller width on bigger screens */
+    }
+
+    #car-description {
+        flex: 0 0 80%; /* Occupy larger width on bigger screens */
+    }
+}
+
+.main {
+    flex: 1;
+}
+/* Section end */
+
+/* Styling for common elements */
+h1 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 35px;
+}
+
+h3 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 25px;
+}
+
+h4 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+}
+
+p {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+    max-width: 500px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Styling for navigation elements */
+nav {
+    background-color: #F7BE35;
+    overflow: hidden;
+}
+
+.nav-link {
+    float: right;
+    color: black;
+    text-align: center;
+    padding: 16px 30px;
+    margin-top: 40px;
+    text-decoration: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+nav a:hover {
+    background-color: #EC9B3B;
+    text-decoration: none;
+}
+
+/* Styling for images */
+.logo {
+    float: left;
+    width: 100px;
+    height: auto;
+    padding: 16px 0px 16px 16px;
+    margin: 0px;
+}
+
+.imgContainer {
+    object-fit:contain;
+    width: 50%;
+    height: 50%;
+    overflow:hidden;
 }
 
 .imgSmall {
     width: 10%;
+    height: auto;
 }
 
 .imgBig {
-    width: 50%;
+    width:100%;
+    height:auto;
+}
+
+/* Style for form elements */
+.form-group label {
+    display: inline-block; /* Display labels and inputs on the same line */
+    width: 120px; /* Set a fixed width for labels */
+    margin-right: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+}
+
+.form-group input {
+    width: 30%; /* Set the width of the input, minus the label width and margin */
+    margin-bottom: 10px;
+}
+
+.form-group .text-danger {
+    display: block; /* Display validation messages below inputs */
+    margin-top: 5px;
+}
+
+/* Styling for table */
+table {
+    table-layout: auto;
+    width: 100%
+}
+
+th {
+    background-color:#EC9B3B;
+    overflow: hidden;
+    color: black;
+    text-align: center;
+    padding: 5px 5px;
+    text-decoration: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+}
+
+tr:hover {
+    background: #F7D716;
+}
+
+td {
+    overflow: hidden;
+    text-align: center;
+    padding: 7px 15px;
+    text-decoration: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+}
+
+/* Styling for definition list (dl) elements */
+dl {
+    width: 100%;
+    table-layout: fixed;
+}
+
+dt {
+    background-color: #EC9B3B;
+    overflow: hidden;
+    text-align: left;
+    padding: 5px 5px;
+    color: black;
+    text-decoration: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+    font-weight:bold;
+}
+
+dd {
+    overflow: hidden;
+    text-align: right;
+    padding: 7px 15px;
+    text-decoration: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+}
+
+dd:hover {
+    background: #F7D716;
+}
+
+/* Styling for buttons */
+.normalbutton {
+    border-color: darkslategray;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+    padding: 5px 10px 5px 10px;
+}
+
+.normalbutton:hover {
+    border-color: #EC9B3B;
+}
+
+.dangerbutton {
+    background-color: black;
+    border-color: darkslategray;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+    color: darkred;
+    padding: 5px 10px 5px 10px;
+}
+
+.dangerbutton:hover {
+    color: red;
+}
+
+.cancelbutton {
+    background-color: black;
+    border-color: darkslategray;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+    color: lightslategray;
+    padding: 5px 10px 5px 10px;
+}
+
+.dangerbutton:hover {
+    color: darkgray;
+}
+
+
+/* Code below for slide show borrowed and slightly modified from:https://codingartistweb.com/2021/08/create-auto-image-slider-using-html-css/*/
+
+.slideshow-container {
+    width: 80vmin;
+    height: auto;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    overflow: hidden;
+    margin: 40px, auto;
+}
+
+.slideshow-wrapper {
+    width: 100%;
+    display: flex;
+    animation: slide 15s infinite;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(0);
+    }
+
+    30% {
+        transform: translateX(-100%);
+    }
+
+    50% {
+        transform: translateX(-100%);
+    }
+
+    55% {
+        transform: translateX(-200%);
+    }
+
+    75% {
+        transform: translateX(-200%);
+    }
+
+    80% {
+        transform: translateX(-300%);
+    }
+
+    100% {
+        transform: translateX(-300%);
+    }
+}
+
+img {
+    width: 100%;
 }

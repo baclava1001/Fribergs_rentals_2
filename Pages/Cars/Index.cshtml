@@ -7,11 +7,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+<h1>Våra bilar</h1>
 <table class="table">
     <thead>
         <tr>
@@ -27,9 +23,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Cars[0].Color)
             </th>
-            <th>
+@*             <th>
                 @Html.DisplayNameFor(model => model.Cars[0].UnAvailable)
-            </th>
+            </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.Cars[0].PricePerDay)
             </th>
@@ -40,7 +36,7 @@
                 @Html.DisplayNameFor(model => model.Cars[0].CarPictures)
             </th>
             <th>
-                <p>Hantera</p>
+                <p>Välj</p>
             </th>
         </tr>
     </thead>
@@ -59,9 +55,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Color)
             </td>
-            <td>
+@*             <td>
                 @Html.DisplayFor(modelItem => item.UnAvailable)
-            </td>
+            </td> *@
             <td>
                 @Html.DisplayFor(modelItem => item.PricePerDay)
             </td>
@@ -71,7 +67,9 @@
             <td>
                     @if (item.CarPictures.Count() > 0)
                     {
-                        <img class="imgSmall" src="@item.CarPictures[0]" alt="Bild på bilen" />
+                        <a asp-page="./Details" asp-route-Id="@item.CarId">
+                            <img class="imgContainer" src="@item.CarPictures[0].CarPicURL" alt="Bild på bilen" />
+                        </a>
                     }
             </td>
 
@@ -103,3 +101,7 @@
 }
     </tbody>
 </table>
+@if (Helpers.RetrieveUserFromCookie(HttpContext.Session) is Administrator)
+{
+<button class="normalbutton" style="float:right; margin:10px 10px" asp-page="Create">Skapa ny bil</button>
+}

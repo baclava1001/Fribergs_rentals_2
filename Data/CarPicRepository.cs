@@ -6,9 +6,14 @@ namespace Fribergs_rentals_2.Data
     public class CarPicRepository : ICarPicture
     {
         private readonly AppDbContext appDbContext;
-        public CarPicRepository(AppDbContext appDbContext)
+        public CarPicRepository(AppDbContext appDbContext) : this()
         {
             this.appDbContext = appDbContext;
+        }
+
+        public CarPicRepository()
+        {
+
         }
 
         public CarPicture GetCarPicById(int? carPicId)

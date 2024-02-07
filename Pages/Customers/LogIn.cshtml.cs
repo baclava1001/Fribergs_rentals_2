@@ -39,7 +39,8 @@ namespace Fribergs_rentals_2.Pages.Customers
 
             if (Customer == null)
             {
-                return NotFound();
+                ModelState.AddModelError(string.Empty, "Ogiltigt användarnamn eller lösenord");
+                return Page();
             }
             else
             {

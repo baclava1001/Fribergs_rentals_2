@@ -5,14 +5,20 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Bokningar</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].Customer.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].BookedCar.Maker)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].BookedCar.Mod)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Booking[0].PickUpDate)
             </th>
@@ -28,6 +34,15 @@
     <tbody>
 @foreach (var item in Model.Booking) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookedCar.Maker)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookedCar.Mod)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PickUpDate)
             </td>
@@ -46,3 +61,4 @@
 }
     </tbody>
 </table>
+<button class="normalbutton" style="float:right; margin:10px 10px" asp-page="Create">Skapa ny bokning</button>

@@ -31,6 +31,7 @@ namespace Fribergs_rentals_2.Pages.Administrators
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
+                ModelState.AddModelError(string.Empty, "Ogiltigt användarnamn eller lösenord");
                 return Page();
             }
 
@@ -39,14 +40,15 @@ namespace Fribergs_rentals_2.Pages.Administrators
 
             if (Admin == null)
             {
-                return NotFound(); // TODO: Felmeddelande istället för NotFound
+                ModelState.AddModelError(string.Empty, "Ogiltigt användarnamn eller lösenord");
+                return Page();
             }
             else
             {
                 // Put it into a session cookie
                 HttpContext.Session.SetString("LoggedInCookie", JsonConvert.SerializeObject(Admin));
             }
-            return Redirect("/Customers/Index");
+            return RedirectToPage("/Bookings/Index");
         }
     }
 }
