@@ -24,23 +24,32 @@ namespace Fribergs_rentals_2.Pages.Bookings
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
+            if (Helpers.RetrieveUserFromCookie(HttpContext.Session) is Administrator)
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            Booking booking = bookingRepo.GetBookingById(id);
+                Booking booking = bookingRepo.GetBookingById(id);
 
-            if (booking == null)
-            {
-                return NotFound();
+                if (booking == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    Booking = booking;
+                }
+                return Page();
             }
             else
             {
-                Booking = booking;
+                return RedirectToPage("/Index");
             }
-            return Page();
         }
+    
+
 
         public async Task<IActionResult> OnPostAsync(int id)
         {
@@ -50,7 +59,7 @@ namespace Fribergs_rentals_2.Pages.Bookings
             }
 
             Booking booking = bookingRepo.GetBookingById(id);
-            
+
             if (booking != null)
             {
                 Booking = booking;

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Fribergs_rentals_2.Data;
 using Fribergs_rentals_2.Models;
+using Fribergs_rentals_2;
 
 namespace Fribergs_rentals_2.Pages.Bookings
 {
@@ -19,11 +20,19 @@ namespace Fribergs_rentals_2.Pages.Bookings
             this.bookingRepo = bookingRepo;
         }
 
-        public IList<Booking> Booking { get;set; } = default!;
+        public IList<Booking> Booking { get; set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
-            Booking = bookingRepo.GetAllBookings().ToList();
+            if (Helpers.RetrieveUserFromCookie(HttpContext.Session) is Administrator)
+            {
+                Booking = bookingRepo.GetAllBookings().ToList();
+                return Page();
+            }
+            else
+            {
+                return RedirectToPage("/Index");
+            }
         }
     }
 }

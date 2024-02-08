@@ -23,8 +23,7 @@ namespace Fribergs_rentals_2.Models
         [DisplayName("Kund")]
         public Customer Customer { get; set; }
         [DisplayName("Personal")]
-        public string? AdministratorName { get; set; }
-        
+        public string? AdministratorName { get; set; }        
         // TODO: Find a way to pass a null object without EF Core trying to write to database
         //public Administrator? Administrator { get; set; }
 

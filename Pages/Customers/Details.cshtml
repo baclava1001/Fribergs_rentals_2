@@ -8,50 +8,50 @@
 
 <h1>Min sida</h1>
 
-<div style="max-width:400px">
+<div class="short-dl">
     <h4>@Model.Customer.FirstName @Model.Customer.LastName</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
+    <dl>
+        <dt>
             @Html.DisplayNameFor(model => model.Customer.FirstName)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.Customer.FirstName)
         </dd>
-        <dt class="col-sm-2">
+        <dt>
             @Html.DisplayNameFor(model => model.Customer.LastName)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.Customer.LastName)
         </dd>
-        <dt class="col-sm-2">
+        <dt>
             @Html.DisplayNameFor(model => model.Customer.BirthDate)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.Customer.BirthDate)
         </dd>
-        <dt class="col-sm-2">
+        <dt>
             @Html.DisplayNameFor(model => model.Customer.Address)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.Customer.Address)
         </dd>
-        <dt class="col-sm-2">
+        <dt>
             @Html.DisplayNameFor(model => model.Customer.Email)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.Customer.Email)
         </dd>
-        <dt class="col-sm-2">
+        <dt>
             @Html.DisplayNameFor(model => model.Customer.PhoneNumber)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.Customer.PhoneNumber)
         </dd>
-        <dt class="col-sm-2">
+        <dt>
             @Html.DisplayNameFor(model => model.Customer.Password)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.Customer.Password)
         </dd>
     </dl>
@@ -60,40 +60,43 @@
 <div>
     <table>
             <thead>
-                <th>
-                    @Html.DisplayNameFor(model => model.Customer.Bookings[0].BookingId)
-                </th>
-@*             <th>
-                    @Html.DisplayNameFor(model => model.Customer.Bookings[0].BookedCar.Maker)
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.Bookings[0].BookingId)
             </th>
             <th>
-                    @Html.DisplayNameFor(model => model.Customer.Bookings[0].BookedCar.Mod)
-            </th> *@
-            <th>
-                    @Html.DisplayNameFor(model => model.Customer.Bookings[0].PickUpDate)
+                @Html.DisplayNameFor(model => model.Customer.Bookings[0].BookedCar.Maker)
             </th>
             <th>
-                    @Html.DisplayNameFor(model => model.Customer.Bookings[0].ReturnDate)
+                @Html.DisplayNameFor(model => model.Customer.Bookings[0].BookedCar.Mod)
             </th>
             <th>
-                    @Html.DisplayNameFor(model => model.Customer.Bookings[0].TotalSum)
+                @Html.DisplayNameFor(model => model.Customer.Bookings[0].PickUpDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.Bookings[0].ReturnDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.Bookings[0].TotalSum)
+            </th>
+            <th>
+                Ändra Bokning
             </th>
             </thead>
         <tbody>
             @if (Model.Customer.Bookings != null)
             {
-                @foreach (Booking b in Model.Customer.Bookings.OrderByDescending(b => b.PickUpDate))
+                foreach (var b in Model.Customer.Bookings.OrderByDescending(b => b.PickUpDate))
                 {
                     <tr>
                         <td>
                             @b.BookingId
                         </td>
-@*                         <td>
+                        <td>
                             @b.BookedCar.Maker
                         </td>
                         <td>
                             @b.BookedCar.Mod
-                        </td> *@
+                        </td>
                         <td>
                             @b.PickUpDate
                         </td>
@@ -103,6 +106,18 @@
                         <td>
                             @b.TotalSum
                         </td>
+                        @if (b.PickUpDate > DateTime.Now)
+                        {
+                            <td>
+                                <a asp-page="/Bookings/Edit" asp-route-Id="b.BookingId">Ändra</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                Arkiverad
+                            </td>
+                        }
                     </tr>
                 }
             }

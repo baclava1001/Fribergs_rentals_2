@@ -3,58 +3,59 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<div class="container">
-<head>
-    <title>Fribergs biluthyrning</title>
-    <link rel="icon" type="image/x-icon" href="~/Images/favicon.ico" />
-    <script src="https://kit.fontawesome.com/69379f0e67.js" crossorigin="anonymous"></script>
-    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Fribergs_rentals_2.styles.css" asp-append-version="true" />
-</head>
-<body class="main">
-    <header>
-        <nav>
-            @{
-                var user = Helpers.RetrieveUserFromCookie(Context.Session);
-            }
-            @if (user == null)
-            {
-                <a class="nav-link" asp-area="" asp-page="/Customers/LogIn">Logga in</a>
-                <a class="nav-link" asp-area="" asp-page="/Customers/Create">Bli kund</a>
-            }
-            else if (user is Customer)
-            {
-                var customer = (Customer)user;
-                string name = $"{customer.FirstName} {customer.LastName}";
-                <a class="nav-link" asp-area="" asp-page="/Logout">Logga ut</a>
-                <a class="nav-link" asp-area="" asp-page="/Customers/Details" asp-route-Id=@customer.CustomerId>@name</a>
-            }
-            else
-            {
-                // TODO: Felmeddelande: kunde inte logga in
-            }
-            <a asp-area="" asp-page="/Index">
-                <img class="logo" src="/Images/friberg_logo.png" alt="Fribergs logotype" />
-            </a>
-                <a class="nav-link" asp-area="" asp-page="/Cars/Index">Våra bilar</a>
-            @* TODO: Make div below center without using position:absolute *@
-            <div style="text-align:center; position:absolute; margin-left:450px">
-                <h2>Fribergs biluthyrning</h2>
-                <p>För dig som <i class="fa-solid fa-car-side" style="color: #ec1f09;"></i> att vara på väg.</p>
+    <head>
+        <title>Fribergs biluthyrning</title>
+        <link rel="icon" type="image/x-icon" href="~/Images/favicon.ico" />
+        <script src="https://kit.fontawesome.com/69379f0e67.js" crossorigin="anonymous"></script>
+        @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/Fribergs_rentals_2.styles.css" asp-append-version="true" />
+    </head>
+    <body class="">
+        <div class="container">
+            <header>
+                <nav>
+                    @{
+                        var user = Helpers.RetrieveUserFromCookie(Context.Session);
+                    }
+                    @if (user == null)
+                    {
+                        <a class="nav-link" asp-area="" asp-page="/Customers/LogIn">Logga in</a>
+                        <a class="nav-link" asp-area="" asp-page="/Customers/Create">Bli kund</a>
+                    }
+                    else if (user is Customer)
+                    {
+                        var customer = (Customer)user;
+                        string name = $"{customer.FirstName} {customer.LastName}";
+                        <a class="nav-link" asp-area="" asp-page="/Logout">Logga ut</a>
+                        <a class="nav-link" asp-area="" asp-page="/Customers/Details" asp-route-Id=@customer.CustomerId>@name</a>
+                    }
+                    else
+                    {
+                        // TODO: Felmeddelande: kunde inte logga in
+                    }
+                    <a asp-area="" asp-page="/Index">
+                        <img class="logo" src="/Images/friberg_logo.png" alt="Fribergs logotype" />
+                    </a>
+                        <a class="nav-link" asp-area="" asp-page="/Cars/Index">Våra bilar</a>
+                    @* TODO: Make div below center without using position:absolute *@
+                    <div style="text-align:center; position:absolute; margin-left:450px">
+                        <h2>Fribergs biluthyrning</h2>
+                        <p>För dig som <i class="fa-solid fa-car-side" style="color: #ec1f09;"></i> att vara på väg.</p>
+                    </div>
+                </nav>
+            </header>
+            <div class="">
+                <main role="" class="main">
+                    @RenderBody()
+                </main>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main">
-            @RenderBody()
-        </main>
-    </div>
-</body>
-<footer class="footer">
-        &copy; 2024 - <a asp-area="" asp-page="/Privacy">Om Fribergs</a>
-</footer>
-</div>
+            <footer id="footer">
+                <hr />
+                &copy; 2024 - <a asp-area="" asp-page="/Privacy">Om Fribergs</a>
+            </footer>
+        </div>
+    </body>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
 <script src="~/js/site.js" asp-append-version="true"></script>

@@ -12,45 +12,43 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Fribergs_rentals_2.styles.css" asp-append-version="true" />
 </head>
-<body>
-    <header>
-        <nav>
-            @{
-                var user = Helpers.RetrieveUserFromCookie(Context.Session);
-            }
-            @if (user is Administrator)
-            {
-                var administrator = (Administrator)user;
-                string name = $"{administrator.FirstName} {administrator.LastName}";
-                <a class="nav-link" asp-area="" asp-page="/Logout">Logga ut</a>
-                <a class="nav-link" asp-area="" asp-page="/Administrators/Details" asp-route-Id=@administrator.AdministratorId>@name</a>
-                <a asp-area="" asp-page="/Index">
-                    <img class="logo" src="/Images/friberg_logo.png" alt="Fribergs logotype" />
-                </a>
-                <a class="nav-link" asp-area="" asp-page="/CarPictures/Index">Bilder</a>
-                <a class="nav-link" asp-area="" asp-page="/Cars/Index">Bilar</a>
-                <a class="nav-link" asp-area="" asp-page="/Administrators/Index">Administratörer</a>
-                <a class="nav-link" asp-area="" asp-page="/Customers/Index">Kunder</a>
-                <a class="nav-link" asp-area="" asp-page="/Bookings/Index">Bokningar</a>
-            }
-        </nav>
-    </header>
+<body class="">
     <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - <a asp-area="" asp-page="/Privacy">Om Fribergs</a>
+        <header>
+            <nav>
+                @{
+                    var user = Helpers.RetrieveUserFromCookie(Context.Session);
+                }
+                @if (user is Administrator)
+                {
+                    var administrator = (Administrator)user;
+                    string name = $"{administrator.FirstName} {administrator.LastName}";
+                    <a class="nav-link" asp-area="" asp-page="/Logout">Logga ut</a>
+                    <a class="nav-link" asp-area="" asp-page="/Administrators/Details" asp-route-Id=@administrator.AdministratorId>@name</a>
+                    <a asp-area="" asp-page="/Index">
+                        <img class="logo" src="/Images/friberg_logo.png" alt="Fribergs logotype" />
+                    </a>
+                    <a class="nav-link" asp-area="" asp-page="/CarPictures/Index">Bilder</a>
+                    <a class="nav-link" asp-area="" asp-page="/Cars/Index">Bilar</a>
+                    <a class="nav-link" asp-area="" asp-page="/Administrators/Index">Administratörer</a>
+                    <a class="nav-link" asp-area="" asp-page="/Customers/Index">Kunder</a>
+                    <a class="nav-link" asp-area="" asp-page="/Bookings/Index">Bokningar</a>
+                }
+            </nav>
+        </header>
+        <div class="">
+            <main role="" class="main">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
-    @await RenderSectionAsync("Scripts", required: false)
+        <footer id="footer">
+            <hr />
+            &copy; 2024 - <a asp-area="" asp-page="/Privacy">Om Fribergs</a>
+        </footer>
+    </div>
 </body>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+@* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
 </html>

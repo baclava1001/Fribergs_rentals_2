@@ -8,7 +8,7 @@
 
 <h1>Bokning</h1>
 <div class="container">
-    <div class="main" style="max-width:400px">
+    <div class="short-dl">
         <h4>Summering</h4>
         <hr />
         <dl class="">
@@ -79,6 +79,6 @@
     <a asp-page="./Edit" asp-route-id="@Model.Booking.BookingId">Ändra</a> |
     @if (Helpers.RetrieveUserFromCookie(HttpContext.Session) is Administrator)
     {
-        <a asp-page="./Index">Back to List</a>
+        <a asp-page="./Index">Tillbaka till listan</a>
     }
 </div>

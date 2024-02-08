@@ -14,7 +14,7 @@ namespace Fribergs_rentals_2.Data
 
         public Customer GetCustomerById(int customerId)
         {
-            return appDbContext.Customers.Include(c => c.Bookings).FirstOrDefault(c => c.CustomerId == customerId);
+            return appDbContext.Customers.Include(c => c.Bookings).ThenInclude(b => b.BookedCar).FirstOrDefault(c => c.CustomerId == customerId);
         }
 
         public Customer GetCustomerByEmail(string customerEmail)
