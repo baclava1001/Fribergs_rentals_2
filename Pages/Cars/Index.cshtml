@@ -6,6 +6,9 @@
 @{
     ViewData["Title"] = "Index";
 }
+@{
+    var user = Helpers.RetrieveUserFromCookie(HttpContext.Session);
+}
 
 <h1>Våra bilar</h1>
 <table class="table">
@@ -73,7 +76,6 @@
                     }
             </td>
 
-                    @{var user = Helpers.RetrieveUserFromCookie(HttpContext.Session);}
                     @if (user is Administrator)
                     {
                     <td>
@@ -103,5 +105,7 @@
 </table>
 @if (Helpers.RetrieveUserFromCookie(HttpContext.Session) is Administrator)
 {
-<button class="normalbutton" style="float:right; margin:10px 10px" asp-page="Create">Skapa ny bil</button>
+    <a asp-page="/Cars/Create">
+        <button class="normalbutton" style="float:right; margin:10px 10px">Skapa ny bil</button>
+    </a>
 }

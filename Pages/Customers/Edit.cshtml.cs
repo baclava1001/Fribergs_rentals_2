@@ -25,19 +25,29 @@ namespace Fribergs_rentals_2.Pages.Customers
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var currentUser = Helpers.RetrieveUserFromCookie(HttpContext.Session);
+            Customer maybeCustomer = (Customer)currentUser;
 
-            Customer customer = customerRepo.GetCustomerById(id);
-            
-            if (customer == null)
+            if (currentUser is Administrator || (currentUser is Customer && maybeCustomer.CustomerId == id))
             {
-                return NotFound();
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                Customer customer = customerRepo.GetCustomerById(id);
+
+                if (customer == null)
+                {
+                    return NotFound();
+                }
+                Customer = customer;
+                return Page();
             }
-            Customer = customer;
-            return Page();
+            else
+            {
+                return RedirectToPage("/Index");
+            }
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -64,7 +74,14 @@ namespace Fribergs_rentals_2.Pages.Customers
                     throw;
                 }
             }
-            return RedirectToPage("./Index");
+            if (Helpers.RetrieveUserFromCookie(HttpContext.Session) is Administrator)
+            {
+                return RedirectToPage("./Index");
+            }
+            else
+            {
+                return RedirectToPage("/Index");
+            }
         }
     }
 }
