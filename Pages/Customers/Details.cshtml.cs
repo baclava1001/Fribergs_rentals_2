@@ -23,22 +23,33 @@ namespace Fribergs_rentals_2.Pages.Customers
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var currentUser = Helpers.RetrieveUserFromCookie(HttpContext.Session);
+            // Convert user to Customer, to see if id:s match
+            Customer maybeCustomer = (Customer)currentUser;
 
-            var customer = customerRepo.GetCustomerById(id);
-
-            if (customer == null)
+            if (currentUser is Administrator || (currentUser is Customer && maybeCustomer.CustomerId == id))
             {
-                return NotFound();
+                if (id == null)
+                {
+                    return NotFound();
+                }
+                
+                var customer = customerRepo.GetCustomerById(id);
+
+                if (customer == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    Customer = customer;
+                }
+                return Page();
             }
             else
             {
-                Customer = customer;
+                return RedirectToPage("/Index");
             }
-            return Page();
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Fribergs_rentals_2.Data;
 using Fribergs_rentals_2.Models;
+using Microsoft.Extensions.Configuration.EnvironmentVariables;
 
 namespace Fribergs_rentals_2.Pages.Customers
 {
@@ -24,22 +25,31 @@ namespace Fribergs_rentals_2.Pages.Customers
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var currentUser = Helpers.RetrieveUserFromCookie(HttpContext.Session);
 
-            Customer customer = customerRepo.GetCustomerById(id);
-
-            if (customer == null)
+            if (currentUser is Administrator)
             {
-                return NotFound();
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                Customer customer = customerRepo.GetCustomerById(id);
+
+                if (customer == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    Customer = customer;
+                }
+                return Page();
             }
             else
             {
-                Customer = customer;
+                return RedirectToPage("/Index");
             }
-            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int id)
@@ -60,7 +70,6 @@ namespace Fribergs_rentals_2.Pages.Customers
             {
                 return NotFound();
             }
-
             return RedirectToPage("./Index");
         }
     }

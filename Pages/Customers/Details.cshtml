@@ -5,8 +5,17 @@
 @{
     ViewData["Title"] = "Details";
 }
-
-<h1>Min sida</h1>
+@{
+    var currentUser = Helpers.RetrieveUserFromCookie(HttpContext.Session);
+}
+@if (currentUser is Administrator)
+{
+    <h1>Kunduppgifter</h1>
+}
+else
+{
+    <h1>Min sida</h1>
+}
 
 <div class="short-dl">
     <h4>@Model.Customer.FirstName @Model.Customer.LastName</h4>
@@ -126,9 +135,7 @@
 </div>
 
 <div>
-    @{
-        var currentUser = Helpers.RetrieveUserFromCookie(HttpContext.Session);
-    }
+    
     @if (currentUser is Administrator)
     {
         <a asp-page="./Edit" asp-route-id="@Model.Customer.CustomerId">Ändra</a>
