@@ -24,7 +24,14 @@ namespace Fribergs_rentals_2.Pages.Cars
 
         public IActionResult OnGet()
         {
-            return Page();
+            if (Helpers.RetrieveUserFromCookie(HttpContext.Session) is Administrator)
+            {
+                return Page();
+            }
+            else
+            {
+                return RedirectToPage("/Index");
+            }
         }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD

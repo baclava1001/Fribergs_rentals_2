@@ -49,15 +49,12 @@
                 <span asp-validation-for="Car.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Lägg till" class="normalbutton" /> | <a asp-page="Index">Tillbaka till lista</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Tillbaka till lista</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -26,19 +26,26 @@ namespace Fribergs_rentals_2.Pages.Administrators
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
+            if (Helpers.RetrieveUserFromCookie(HttpContext.Session) is Administrator)
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var administrator = adminRepo.GetAdminById(id);
-            
-            if (administrator == null)
-            {
-                return NotFound();
+                var administrator = adminRepo.GetAdminById(id);
+
+                if (administrator == null)
+                {
+                    return NotFound();
+                }
+                Administrator = administrator;
+                return Page();
             }
-            Administrator = administrator;
-            return Page();
+            else
+            {
+                return RedirectToPage("/Index");
+            }
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.

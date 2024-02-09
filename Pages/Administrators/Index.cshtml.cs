@@ -21,9 +21,17 @@ namespace Fribergs_rentals_2.Pages.Administrators
 
         public IList<Administrator> Administrator { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public IActionResult OnGet()
         {
-            Administrator = adminRepo.GetAllAdmin().ToList();
+            if (Helpers.RetrieveUserFromCookie(HttpContext.Session) is Administrator)
+            {
+                Administrator = adminRepo.GetAllAdmin().ToList();
+                return Page();
+            }
+            else
+            {
+                return RedirectToPage("/Index");
+            }
         }
     }
 }

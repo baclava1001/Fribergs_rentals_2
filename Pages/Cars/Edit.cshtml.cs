@@ -25,18 +25,25 @@ namespace Fribergs_rentals_2.Pages.Cars
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
+            if (Helpers.RetrieveUserFromCookie(HttpContext.Session) is Administrator)
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            Car car =  await carRepo.GetCarByIdAsync(id);
-            if (car == null)
-            {
-                return NotFound();
+                Car car = await carRepo.GetCarByIdAsync(id);
+                if (car == null)
+                {
+                    return NotFound();
+                }
+                Car = car;
+                return Page();
             }
-            Car = car;
-            return Page();
+            else
+            {
+                return RedirectToPage("/Index");
+            }
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.

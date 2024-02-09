@@ -21,7 +21,15 @@ namespace Fribergs_rentals_2.Pages.Administrators
 
         public IActionResult OnGet()
         {
-            return Page();
+            if (Helpers.RetrieveUserFromCookie(HttpContext.Session) is Administrator)
+            {
+                return Page();
+            }
+            else
+            {
+                return RedirectToPage("/Index");
+            }
+
         }
 
         [BindProperty]

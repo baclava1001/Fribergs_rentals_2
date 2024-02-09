@@ -5,6 +5,9 @@
 @{
     ViewData["Title"] = "Details";
 }
+@{
+    var currentUser = Helpers.RetrieveUserFromCookie(HttpContext.Session);
+}
 
 <h1>@Model.Car.Maker @Model.Car.Mod (@Model.Car.Year)</h1>
 <hr />
@@ -24,12 +27,9 @@
                 }
             </dd>
             <dd class="">
-            @{
-                var currentUser = Helpers.RetrieveUserFromCookie(HttpContext.Session);
-            }
             @if (currentUser is Administrator)
             {
-                <a asp-page="./Edit" asp-route-id="@Model.Car.CarId">Edit</a>
+                <a asp-page="./Edit" asp-route-id="@Model.Car.CarId">Ändra |</a>
             }
             <a asp-page="./Index">Tillbaka till alla bilar</a>
             </dd>

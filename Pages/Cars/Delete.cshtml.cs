@@ -24,22 +24,29 @@ namespace Fribergs_rentals_2.Pages.Cars
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
+            if (Helpers.RetrieveUserFromCookie(HttpContext.Session) is Administrator)
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            Car car = await carRepo.GetCarByIdAsync(id);
+                Car car = await carRepo.GetCarByIdAsync(id);
 
-            if (car == null)
-            {
-                return NotFound();
+                if (car == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    Car = car;
+                }
+                return Page();
             }
             else
             {
-                Car = car;
+                return RedirectToPage("/Index");
             }
-            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int id)

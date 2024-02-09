@@ -23,21 +23,28 @@ namespace Fribergs_rentals_2.Pages.Administrators
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
+            if (Helpers.RetrieveUserFromCookie(HttpContext.Session) is Administrator)
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var administrator = adminRepo.GetAdminById(id);
-            if (administrator == null)
-            {
-                return NotFound();
+                var administrator = adminRepo.GetAdminById(id);
+                if (administrator == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    Administrator = administrator;
+                }
+                return Page();
             }
             else
             {
-                Administrator = administrator;
+                return RedirectToPage("/Index");
             }
-            return Page();
         }
     }
 }
