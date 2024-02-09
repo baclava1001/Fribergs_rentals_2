@@ -21,35 +21,25 @@ namespace Fribergs_rentals_2.Pages.Customers
 
         public Customer Customer { get; set; } = default!;
 
+        // TODO: Find a way to retrieve customer-id so that only admins and the right customer can see this page
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            var currentUser = Helpers.RetrieveUserFromCookie(HttpContext.Session);
-            // Convert user to Customer, to see if id:s match
-            Customer maybeCustomer = (Customer)currentUser;
-
-            if (currentUser is Administrator || (currentUser is Customer && maybeCustomer.CustomerId == id))
+            if (id == null)
             {
-                if (id == null)
-                {
-                    return NotFound();
-                }
+                return NotFound();
+            }
                 
-                var customer = customerRepo.GetCustomerById(id);
+            var customer = customerRepo.GetCustomerById(id);
 
-                if (customer == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    Customer = customer;
-                }
-                return Page();
+            if (customer == null)
+            {
+                return NotFound();
             }
             else
             {
-                return RedirectToPage("/Index");
+                Customer = customer;
             }
+            return Page();
         }
     }
 }

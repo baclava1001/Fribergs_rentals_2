@@ -21,9 +21,17 @@ namespace Fribergs_rentals_2.Pages.CarPictures
 
         public IList<CarPicture> CarPicture { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
-            CarPicture = (await carPicRepo.GetAllCarPicsAsync()).ToList();
+            if (Helpers.RetrieveUserFromCookie(HttpContext.Session) is Administrator)
+            {
+                CarPicture = (await carPicRepo.GetAllCarPicsAsync()).ToList();
+                return Page();
+            }
+            else
+            {
+                return RedirectToPage("/Index");
+            }
         }
     }
 }

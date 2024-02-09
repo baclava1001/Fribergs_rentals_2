@@ -5,28 +5,32 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Hantera bilder</h1>
 
+<h4>(Skapa ny bild från <a asp-for="/Cars/Index">listan på bilar</a>)</h4>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CarPicture[0].CarPicURL)
+                Bild
             </th>
-            <th></th>
+            <th>
+                Hantera
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.CarPicture) {
+@foreach (var item in Model.CarPicture)
+{
         <tr>
             <td>
                 <input type="hidden" asp-for="@item.Car.CarId" />
-                <img class="imgSmall" src="@item.CarPicURL" />
+                <img class="imgBig" src="@item.CarPicURL" />
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.CarPictureId" asp-route-carId="@item.Car.CarId">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.CarPictureId" asp-route-carId="@item.Car.CarId">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.CarPictureId" asp-route-carId="@item.Car.CarId">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.CarPictureId" asp-route-carId="@item.Car.CarId">Ändra</a> |
+                <a asp-page="./Details" asp-route-id="@item.CarPictureId" asp-route-carId="@item.Car.CarId">Detaljer</a> |
+                <a asp-page="./Delete" asp-route-id="@item.CarPictureId" asp-route-carId="@item.Car.CarId">Radera</a>
             </td>
         </tr>
 }

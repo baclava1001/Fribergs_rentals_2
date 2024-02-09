@@ -5,10 +5,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Högupplöst bild</h1>
 
 <div>
-    <h4>CarPicture</h4>
+    <h4>@Model.CarPicture.Car.Maker @Model.CarPicture.Car.Mod</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -20,6 +20,6 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.CarPicture.CarPictureId" asp-route-carId="@Model.CarPicture.Car.CarId">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Edit" asp-route-id="@Model.CarPicture.CarPictureId" asp-route-carId="@Model.CarPicture.Car.CarId">Ändra</a> |
+    <a asp-page="./Index">Tillbaka till lista</a>
 </div>

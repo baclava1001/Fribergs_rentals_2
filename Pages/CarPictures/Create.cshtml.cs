@@ -27,16 +27,23 @@ namespace Fribergs_rentals_2.Pages.CarPictures
 
         public async Task<IActionResult> OnGetAsync(int carId)
         {
-            if (carId == null)
+            if (Helpers.RetrieveUserFromCookie(HttpContext.Session) is Administrator)
             {
-                return NotFound();
+                if (carId == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    CarPicture = new CarPicture();
+                    CarPicture.Car = await carRepo.GetCarByIdAsync(carId);
+                }
+                return Page();
             }
             else
             {
-                CarPicture = new CarPicture();
-                CarPicture.Car = await carRepo.GetCarByIdAsync(carId);
+                return RedirectToPage("/Index");
             }
-                return Page();
         }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD

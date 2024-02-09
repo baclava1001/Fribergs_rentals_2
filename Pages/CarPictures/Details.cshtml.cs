@@ -25,23 +25,30 @@ namespace Fribergs_rentals_2.Pages.CarPictures
 
         public async Task<IActionResult> OnGetAsync(int? id, int carId)
         {
-            if (id == null)
+            if (Helpers.RetrieveUserFromCookie(HttpContext.Session) is Administrator)
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            CarPicture carPic = carPicRepo.GetCarPicById(id);
-            
-            if (carPic == null)
-            {
-                return NotFound();
+                CarPicture carPic = carPicRepo.GetCarPicById(id);
+
+                if (carPic == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    CarPicture = carPic;
+                    CarPicture.Car = await carRepo.GetCarByIdAsync(carId);
+                }
+                return Page();
             }
             else
             {
-                CarPicture = carPic;
-                CarPicture.Car = await carRepo.GetCarByIdAsync(carId);
+                return RedirectToPage("/Index");
             }
-            return Page();
         }
     }
 }

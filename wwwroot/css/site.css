@@ -200,6 +200,7 @@ nav a:hover {
 
     .dangerbutton:hover {
         border-color: red;
+        color: red;
     }
 
 .cancelbutton {

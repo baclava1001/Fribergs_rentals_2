@@ -23,13 +23,14 @@ namespace Fribergs_rentals_2.Pages.Customers
         [BindProperty]
         public Customer Customer { get; set; } = default!;
 
+        // TODO: Find a way to retrieve customer-id so that only admins and the right customer can see this page
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            var currentUser = Helpers.RetrieveUserFromCookie(HttpContext.Session);
-            Customer maybeCustomer = (Customer)currentUser;
+            //var currentUser = Helpers.RetrieveUserFromCookie(HttpContext.Session);
+            //Customer maybeCustomer = (Customer)currentUser;
 
-            if (currentUser is Administrator || (currentUser is Customer && maybeCustomer.CustomerId == id))
-            {
+            //if (currentUser is Administrator || (currentUser is Customer && maybeCustomer.CustomerId == id))
+            //{
                 if (id == null)
                 {
                     return NotFound();
@@ -43,11 +44,11 @@ namespace Fribergs_rentals_2.Pages.Customers
                 }
                 Customer = customer;
                 return Page();
-            }
-            else
-            {
-                return RedirectToPage("/Index");
-            }
+            //}
+            //else
+            //{
+            //    return RedirectToPage("/Index");
+            //}
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.

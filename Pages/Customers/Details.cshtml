@@ -67,78 +67,85 @@ else
 </div>
 
 <div>
-    <table>
+    @if (Model.Customer.Bookings.Count > 0)
+    {
+        <table>
             <thead>
             <th>
-                @Html.DisplayNameFor(model => model.Customer.Bookings[0].BookingId)
+                    @Html.DisplayNameFor(model => model.Customer.Bookings[0].BookingId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customer.Bookings[0].BookedCar.Maker)
+                    @Html.DisplayNameFor(model => model.Customer.Bookings[0].BookedCar.Maker)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customer.Bookings[0].BookedCar.Mod)
+                    @Html.DisplayNameFor(model => model.Customer.Bookings[0].BookedCar.Mod)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customer.Bookings[0].PickUpDate)
+                    @Html.DisplayNameFor(model => model.Customer.Bookings[0].PickUpDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customer.Bookings[0].ReturnDate)
+                    @Html.DisplayNameFor(model => model.Customer.Bookings[0].ReturnDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customer.Bookings[0].TotalSum)
+                    @Html.DisplayNameFor(model => model.Customer.Bookings[0].TotalSum)
             </th>
             <th>
                 Ändra Bokning
             </th>
             </thead>
-        <tbody>
-            @if (Model.Customer.Bookings != null)
-            {
-                foreach (var b in Model.Customer.Bookings.OrderByDescending(b => b.PickUpDate))
+            <tbody>
+                @if (Model.Customer.Bookings != null)
                 {
-                    <tr>
-                        <td>
-                            @b.BookingId
-                        </td>
-                        <td>
-                            @b.BookedCar.Maker
-                        </td>
-                        <td>
-                            @b.BookedCar.Mod
-                        </td>
-                        <td>
-                            @b.PickUpDate
-                        </td>
-                        <td>
-                            @b.ReturnDate
-                        </td>
-                        <td>
-                            @b.TotalSum
-                        </td>
-                        @if (b.PickUpDate > DateTime.Now)
-                        {
+                    foreach (var b in Model.Customer.Bookings.OrderByDescending(b => b.PickUpDate))
+                    {
+                        <tr>
                             <td>
-                                <a asp-page="/Bookings/Edit" asp-route-Id="b.BookingId">Ändra</a>
+                                @b.BookingId
                             </td>
-                        }
-                        else
-                        {
                             <td>
-                                Arkiverad
+                                @b.BookedCar.Maker
                             </td>
-                        }
-                    </tr>
+                            <td>
+                                @b.BookedCar.Mod
+                            </td>
+                            <td>
+                                @b.PickUpDate
+                            </td>
+                            <td>
+                                @b.ReturnDate
+                            </td>
+                            <td>
+                                @b.TotalSum
+                            </td>
+                            @if (b.PickUpDate > DateTime.Now)
+                            {
+                                <td>
+                                    <a asp-page="/Bookings/Edit" asp-route-Id="b.BookingId">Ändra</a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    Arkiverad
+                                </td>
+                            }
+                        </tr>
+                    }
                 }
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Inga bokningar sparade</p>
+    }
 </div>
 
 <div>
     
     @if (currentUser is Administrator)
     {
-        <a asp-page="./Edit" asp-route-id="@Model.Customer.CustomerId">Ändra</a>
+        <a asp-page="./Edit" asp-route-id="@Model.Customer.CustomerId">Ändra |</a>
         <a asp-page="./Index">Tillbaka till lista</a>
     }
 </div>

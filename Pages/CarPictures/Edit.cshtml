@@ -5,9 +5,9 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Ändra Bild</h1>
 
-<h4>CarPicture</h4>
+<h4>@Model.CarPicture.Car.Maker @Model.CarPicture.Car.Mod</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -29,14 +29,11 @@
                 <span asp-validation-for="CarPicture.CarPicURL" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <img src="@Model.CarPicture.CarPicURL" class="imgSmall" />
+                <input type="submit" value="Spara" class="normalbutton" /> | <a asp-page="./Index">Tillbaka till lista</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-page="./Index">Back to List</a>
 </div>
 
 @section Scripts {
