@@ -90,7 +90,7 @@ else
                     @Html.DisplayNameFor(model => model.Customer.Bookings[0].TotalSum)
             </th>
             <th>
-                Ändra Bokning
+                Hantera
             </th>
             </thead>
             <tbody>
@@ -120,7 +120,8 @@ else
                             @if (b.PickUpDate > DateTime.Now)
                             {
                                 <td>
-                                    <a asp-page="/Bookings/Edit" asp-route-Id="b.BookingId">Ändra</a>
+                                    <a asp-page="/Bookings/Edit" asp-route-Id="b.BookingId">Ändra</a> |
+                                    <a asp-page="/Bookings/Delete" asp-route-Id="b.BookingId">Radera</a>
                                 </td>
                             }
                             else
